@@ -1,0 +1,61 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Road+Rage&display=swap');
+
+body {
+    color: white;
+    background-color: black;
+
+    header {
+        h1 {
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 0px auto;
+            max-width: 1400px;
+            text-align: center;
+        }
+    }
+
+    main {
+        max-width: 1024px;
+        margin: 0px auto;
+
+        #game {
+            .row {
+                display: flex;
+
+                .col {
+                    width: 32px;
+                    height: 32px;
+                    box-sizing: border-box;
+                    /*border: 1px solid rgb(60, 60, 60);*/
+                    background: black;
+
+                    &.room {
+                        background-color: grey;
+                        border: 1px solid rgb(60, 60, 60);
+                    }
+
+                    &.monster {
+                        /*background-color: red;*/
+                        background-image: url('../img/monster1.png');
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+
+                    &.perso {
+                        /*background-color: violet;*/
+                        background-image: url('../img/heroM.png');
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+            }
+        }
+    }
+}
