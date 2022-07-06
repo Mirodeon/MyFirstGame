@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow&family=Road+Rage&display=swap");
 body {
   color: white;
-  background-color: black;
+  background-color: rgb(50, 50, 50);
 }
 body header h1 {
   text-align: center;
@@ -27,22 +27,118 @@ body main #game .row .col {
   box-sizing: border-box;
   /*border: 1px solid rgb(60, 60, 60);*/
   background: black;
-}
-body main #game .row .col.room {
-  background-color: grey;
   border: 1px solid rgb(60, 60, 60);
 }
-body main #game .row .col.monster {
+body main #game .row .col.room {
+  border: 1px solid rgb(60, 60, 60);
+  background-image: url("../img/ground1.png");
+  /*background-color: blue;*/
+  background-color: blue;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+body main #game .row .col.corridor {
+  border: 1px solid rgb(60, 60, 60);
+  background-image: url("../img/ground1.png");
   /*background-color: red;*/
+  background-color: grey;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+body main #game .row .col.monster {
   background-image: url("../img/monster1.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
 body main #game .row .col.perso {
-  /*background-color: violet;*/
   background-image: url("../img/heroM.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+body main #game .row .col.wall {
+  background-image: url("../img/wall.png");
+  background-color: grey;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+body main #game .row .col.brasero {
+  background-image: url("../img/brasero.png");
+  background-color: grey;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+body main #game .row .col.pathCorridor {
+  background-color: red;
+  border: 1px solid white;
+}
+body main #game .row .col.pathCorridor.room {
+  background-color: yellow;
+}
+body main #game .row .col.pathCorridor.wall {
+  background-color: red;
+}
+body main #game .row .col.pathCorridor.brasero {
+  background-color: red;
+}
+body main #game .row .col.upOCorr {
+  background-color: green;
+}
+body main #game .row .col.upOCorr.wall {
+  background-color: green;
+}
+body main #game .row .col.upOCorr.room {
+  background-color: green;
+}
+body main #game .row .col.upOCorr.brasero {
+  background-color: green;
+}
+body main #game .row .col.downOCorr {
+  background-color: lightgreen;
+}
+body main #game .row .col.downOCorr.wall {
+  background-color: lightgreen;
+}
+body main #game .row .col.downOCorr.room {
+  background-color: lightgreen;
+}
+body main #game .row .col.downOCorr.brasero {
+  background-color: lightgreen;
+}
+body main #game .row .col.leftOCorr.wall {
+  background-color: greenyellow;
+}
+body main #game .row .col.leftOCorr.room {
+  background-color: greenyellow;
+}
+body main #game .row .col.leftOCorr.brasero {
+  background-color: greenyellow;
+}
+body main #game .row .col.rightOCorr.wall {
+  background-color: mediumaquamarine;
+}
+body main #game .row .col.rightOCorr.room {
+  background-color: mediumaquamarine;
+}
+body main #game .row .col.rightOCorr.brasero {
+  background-color: mediumaquamarine;
+}
+body main #game .row .col.joinCorr {
+  background-color: blueviolet;
+  border: 5px solid white;
+}
+body main #game .row .col.joinCorr.wall {
+  background-color: blueviolet;
+}
+body main #game .row .col.joinCorr.room {
+  background-color: blueviolet;
+}
+body main #game .row .col.joinCorr.brasero {
+  background-color: blueviolet;
 }/*# sourceMappingURL=style.css.map */

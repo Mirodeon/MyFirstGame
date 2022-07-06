@@ -3,7 +3,7 @@
 
 body {
     color: white;
-    background-color: black;
+    background-color: rgb(50, 50, 50);
 
     header {
         h1 {
@@ -33,14 +33,29 @@ body {
                     box-sizing: border-box;
                     /*border: 1px solid rgb(60, 60, 60);*/
                     background: black;
+                    border: 1px solid rgb(60, 60, 60);
 
                     &.room {
-                        background-color: grey;
                         border: 1px solid rgb(60, 60, 60);
+                        background-image: url('../img/ground1.png');
+                        /*background-color: blue;*/
+                        background-color: blue;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+
+                    &.corridor {
+                        border: 1px solid rgb(60, 60, 60);
+                        background-image: url('../img/ground1.png');
+                        /*background-color: red;*/
+                        background-color: grey;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
                     }
 
                     &.monster {
-                        /*background-color: red;*/
                         background-image: url('../img/monster1.png');
                         background-position: center;
                         background-size: contain;
@@ -48,11 +63,128 @@ body {
                     }
 
                     &.perso {
-                        /*background-color: violet;*/
                         background-image: url('../img/heroM.png');
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
+                    }
+
+                    &.wall {
+                        background-image: url('../img/wall.png');
+                        background-color: grey;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+
+                    &.brasero {
+                        background-image: url('../img/brasero.png');
+                        background-color: grey;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+            }
+        }
+    }
+}
+
+body {
+    main {
+        #game {
+            .row {
+                .col {
+                    &.pathCorridor {
+                        background-color: red;
+                        border: 1px solid white;
+
+                        &.room {
+                            background-color: yellow;
+                        }
+
+                        &.wall {
+                            background-color: red;
+                        }
+
+                        &.brasero {
+                            background-color: red;
+                        }
+                    }
+
+                    &.upOCorr {
+                        background-color: green;
+
+                        &.wall {
+                            background-color: green;
+                        }
+
+                        &.room {
+                            background-color: green;
+                        }
+
+                        &.brasero {
+                            background-color: green;
+                        }
+                    }
+
+                    &.downOCorr {
+                        background-color: lightgreen;
+
+                        &.wall {
+                            background-color: lightgreen;
+                        }
+
+                        &.room {
+                            background-color: lightgreen;
+                        }
+
+                        &.brasero {
+                            background-color: lightgreen;
+                        }
+                    }
+                    &.leftOCorr{
+                        &.wall {
+                            background-color: greenyellow;
+                        }
+
+                        &.room {
+                            background-color: greenyellow;
+                        }
+
+                        &.brasero {
+                            background-color: greenyellow;
+                        }
+                    }
+                    &.rightOCorr{
+                        &.wall {
+                            background-color: mediumaquamarine;
+                        }
+
+                        &.room {
+                            background-color: mediumaquamarine;
+                        }
+
+                        &.brasero {
+                            background-color: mediumaquamarine;
+                        }
+                    }
+
+                    &.joinCorr {
+                        background-color: blueviolet;
+                        border: 5px solid white;
+
+                        &.wall {
+                            background-color: blueviolet;
+                        }
+
+                        &.room {
+                            background-color: blueviolet;
+                        }
+
+                        &.brasero {
+                            background-color: blueviolet;
+                        }
                     }
                 }
             }
