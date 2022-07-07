@@ -33,13 +33,11 @@ body {
                     box-sizing: border-box;
                     /*border: 1px solid rgb(60, 60, 60);*/
                     background: black;
-                    border: 1px solid rgb(60, 60, 60);
 
                     &.room {
                         border: 1px solid rgb(60, 60, 60);
                         background-image: url('../img/ground1.png');
-                        /*background-color: blue;*/
-                        background-color: blue;
+                        background-color: grey;
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
@@ -48,7 +46,6 @@ body {
                     &.corridor {
                         border: 1px solid rgb(60, 60, 60);
                         background-image: url('../img/ground1.png');
-                        /*background-color: red;*/
                         background-color: grey;
                         background-position: center;
                         background-size: contain;
@@ -89,8 +86,8 @@ body {
         }
     }
 }
-
-body {
+// mise en evidence de path corridor
+/*body {
     main {
         #game {
             .row {
@@ -98,6 +95,7 @@ body {
                     &.pathCorridor {
                         background-color: red;
                         border: 1px solid white;
+                        border-radius: 50%;
 
                         &.room {
                             background-color: yellow;
@@ -126,6 +124,9 @@ body {
                         &.brasero {
                             background-color: green;
                         }
+                        &.pathCorridor {
+                            background-color: green;
+                        }
                     }
 
                     &.downOCorr {
@@ -142,6 +143,9 @@ body {
                         &.brasero {
                             background-color: lightgreen;
                         }
+                        &.pathCorridor {
+                            background-color: lightgreen;
+                        }
                     }
                     &.leftOCorr{
                         &.wall {
@@ -155,39 +159,32 @@ body {
                         &.brasero {
                             background-color: greenyellow;
                         }
+                        &.pathCorridor {
+                            background-color: greenyellow;
+                        }
                     }
                     &.rightOCorr{
                         &.wall {
-                            background-color: mediumaquamarine;
+                            background-color: cyan;
                         }
 
                         &.room {
-                            background-color: mediumaquamarine;
+                            background-color: cyan;
                         }
 
                         &.brasero {
-                            background-color: mediumaquamarine;
+                            background-color: cyan;
+                        }
+                        &.pathCorridor {
+                            background-color: cyan;
                         }
                     }
 
-                    &.joinCorr {
-                        background-color: blueviolet;
-                        border: 5px solid white;
-
-                        &.wall {
-                            background-color: blueviolet;
-                        }
-
-                        &.room {
-                            background-color: blueviolet;
-                        }
-
-                        &.brasero {
-                            background-color: blueviolet;
-                        }
+                    &.joinCorr {                      
+                        border: 10px solid orange;
                     }
                 }
             }
         }
     }
-}
+}*/

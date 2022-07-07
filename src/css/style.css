@@ -27,13 +27,11 @@ body main #game .row .col {
   box-sizing: border-box;
   /*border: 1px solid rgb(60, 60, 60);*/
   background: black;
-  border: 1px solid rgb(60, 60, 60);
 }
 body main #game .row .col.room {
   border: 1px solid rgb(60, 60, 60);
   background-image: url("../img/ground1.png");
-  /*background-color: blue;*/
-  background-color: blue;
+  background-color: grey;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -41,7 +39,6 @@ body main #game .row .col.room {
 body main #game .row .col.corridor {
   border: 1px solid rgb(60, 60, 60);
   background-image: url("../img/ground1.png");
-  /*background-color: red;*/
   background-color: grey;
   background-position: center;
   background-size: contain;
@@ -74,71 +71,104 @@ body main #game .row .col.brasero {
   background-repeat: no-repeat;
 }
 
-body main #game .row .col.pathCorridor {
-  background-color: red;
-  border: 1px solid white;
-}
-body main #game .row .col.pathCorridor.room {
-  background-color: yellow;
-}
-body main #game .row .col.pathCorridor.wall {
-  background-color: red;
-}
-body main #game .row .col.pathCorridor.brasero {
-  background-color: red;
-}
-body main #game .row .col.upOCorr {
-  background-color: green;
-}
-body main #game .row .col.upOCorr.wall {
-  background-color: green;
-}
-body main #game .row .col.upOCorr.room {
-  background-color: green;
-}
-body main #game .row .col.upOCorr.brasero {
-  background-color: green;
-}
-body main #game .row .col.downOCorr {
-  background-color: lightgreen;
-}
-body main #game .row .col.downOCorr.wall {
-  background-color: lightgreen;
-}
-body main #game .row .col.downOCorr.room {
-  background-color: lightgreen;
-}
-body main #game .row .col.downOCorr.brasero {
-  background-color: lightgreen;
-}
-body main #game .row .col.leftOCorr.wall {
-  background-color: greenyellow;
-}
-body main #game .row .col.leftOCorr.room {
-  background-color: greenyellow;
-}
-body main #game .row .col.leftOCorr.brasero {
-  background-color: greenyellow;
-}
-body main #game .row .col.rightOCorr.wall {
-  background-color: mediumaquamarine;
-}
-body main #game .row .col.rightOCorr.room {
-  background-color: mediumaquamarine;
-}
-body main #game .row .col.rightOCorr.brasero {
-  background-color: mediumaquamarine;
-}
-body main #game .row .col.joinCorr {
-  background-color: blueviolet;
-  border: 5px solid white;
-}
-body main #game .row .col.joinCorr.wall {
-  background-color: blueviolet;
-}
-body main #game .row .col.joinCorr.room {
-  background-color: blueviolet;
-}
-body main #game .row .col.joinCorr.brasero {
-  background-color: blueviolet;
-}/*# sourceMappingURL=style.css.map */
+/*body {
+    main {
+        #game {
+            .row {
+                .col {
+                    &.pathCorridor {
+                        background-color: red;
+                        border: 1px solid white;
+                        border-radius: 50%;
+
+                        &.room {
+                            background-color: yellow;
+                        }
+
+                        &.wall {
+                            background-color: red;
+                        }
+
+                        &.brasero {
+                            background-color: red;
+                        }
+                    }
+
+                    &.upOCorr {
+                        background-color: green;
+
+                        &.wall {
+                            background-color: green;
+                        }
+
+                        &.room {
+                            background-color: green;
+                        }
+
+                        &.brasero {
+                            background-color: green;
+                        }
+                        &.pathCorridor {
+                            background-color: green;
+                        }
+                    }
+
+                    &.downOCorr {
+                        background-color: lightgreen;
+
+                        &.wall {
+                            background-color: lightgreen;
+                        }
+
+                        &.room {
+                            background-color: lightgreen;
+                        }
+
+                        &.brasero {
+                            background-color: lightgreen;
+                        }
+                        &.pathCorridor {
+                            background-color: lightgreen;
+                        }
+                    }
+                    &.leftOCorr{
+                        &.wall {
+                            background-color: greenyellow;
+                        }
+
+                        &.room {
+                            background-color: greenyellow;
+                        }
+
+                        &.brasero {
+                            background-color: greenyellow;
+                        }
+                        &.pathCorridor {
+                            background-color: greenyellow;
+                        }
+                    }
+                    &.rightOCorr{
+                        &.wall {
+                            background-color: cyan;
+                        }
+
+                        &.room {
+                            background-color: cyan;
+                        }
+
+                        &.brasero {
+                            background-color: cyan;
+                        }
+                        &.pathCorridor {
+                            background-color: cyan;
+                        }
+                    }
+
+                    &.joinCorr {                      
+                        border: 10px solid orange;
+                    }
+                }
+            }
+        }
+    }
+}*//*# sourceMappingURL=style.css.map */

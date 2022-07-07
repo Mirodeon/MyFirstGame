@@ -22,14 +22,13 @@ const gameBoard = () => {
 
 // spawn dungeon rooms
 const numberRooms = () => {
-    // number of rooms spawned (5 <= 10)
-    let nRCoeff = Math.floor(Math.random() * 6);
-    let nR = nRCoeff + 5;
+    // number of rooms spawned (7 <= 10)
+    let nRCoeff = Math.floor(Math.random() * 4);
+    let nR = nRCoeff + 7;
     console.log(`number of rooms: ${nR}`);
     positionRooms(nR);
     spawnHero();
     spawnMonster(nR);
-
 };
 
 const positionRooms = (nR) => {
@@ -50,7 +49,7 @@ const sizeRoom = (rPO, cPO, roomIdx) => {
     let cS = 2 + cSCoeff;
     console.log(`size of room${roomIdx}: r${rS} c${cS}`);
     drawRoom(rPO, cPO, rS, cS, roomIdx);
-    corridorOrigin(rPO, cPO, rS, cS, roomIdx);
+    corridorPathOrigin(rPO, cPO, rS, cS, roomIdx);
 
 };
 
@@ -68,9 +67,9 @@ const drawRoom = (rPO, cPO, rS, cS, roomIdx) => {
     console.log(`room${roomIdx} generated`);
 };
 
-// corridor generation
-const corridorOrigin = (rPO, cPO, rS, cS, roomIdx) => {
-    // origin of corridor
+// corridor path
+const corridorPathOrigin = (rPO, cPO, rS, cS, roomIdx) => {
+    // origin of corridor path
     let downR = rPO + rS;
     let rightC = cPO + cS;
     let upEdge = rPO - 1;
@@ -91,7 +90,7 @@ const corridorOrigin = (rPO, cPO, rS, cS, roomIdx) => {
             cPOCorr = 31;
         };
         console.log(`room${roomIdx} corridor up origin: r${rPO - 1}c${cPOCorr}`);
-        drawUpCorridor(rPO - 1, cPOCorr);
+        pathUpCorridor(rPO - 1, cPOCorr, roomIdx);
     } else {
         // down corridor origin
         let cCoeff = Math.floor(Math.random() * cS);
@@ -100,7 +99,7 @@ const corridorOrigin = (rPO, cPO, rS, cS, roomIdx) => {
             cPOCorr = 31;
         };
         console.log(`room${roomIdx} corridor down origin: r${downR}c${cPOCorr}`);
-        drawDownCorridor(downR, cPOCorr);
+        pathDownCorridor(downR, cPOCorr, roomIdx);
     };
     if (leftEdge >= rightEdge) {
         // left corridor origin
@@ -110,7 +109,7 @@ const corridorOrigin = (rPO, cPO, rS, cS, roomIdx) => {
             rPOCorr = 19;
         };
         console.log(`room${roomIdx} corridor left origin: r${rPOCorr}c${cPO - 1}`);
-        drawLeftCorridor(rPOCorr, cPO - 1);
+        pathLeftCorridor(rPOCorr, cPO - 1, roomIdx);
 
     } else {
         // right corridor origin
@@ -120,12 +119,12 @@ const corridorOrigin = (rPO, cPO, rS, cS, roomIdx) => {
             rPOCorr = 19;
         };
         console.log(`room${roomIdx} corridor right origin: r${rPOCorr}c${rightC}`);
-        drawRightCorridor(rPOCorr, rightC);
+        pathRightCorridor(rPOCorr, rightC, roomIdx);
     };
 };
 
 
-const drawUpCorridor = (rPOCorr, cPCorr) => {
+const pathUpCorridor = (rPOCorr, cPCorr, roomIdx) => {
     // up corridor path
     for (let rPCorr = rPOCorr; rPCorr > 1; rPCorr--) {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
@@ -137,6 +136,9 @@ const drawUpCorridor = (rPOCorr, cPCorr) => {
             surroundRoomL = corridorArea;
             surroundRoomR = corridorArea;
         };
+        if (rPCorr == rPOCorr) {
+            corridorArea.classList.add(`upOCorr`);
+        };
         if (
             !corridorArea.classList.contains(`room`) &&
             !corridorArea.classList.contains(`pathCorridor`) &&
@@ -145,19 +147,16 @@ const drawUpCorridor = (rPOCorr, cPCorr) => {
             !surroundRoomL.classList.contains(`room`) &&
             !surroundRoomR.classList.contains(`room`)
         ) {
-            if (rPCorr == rPOCorr) {
-                corridorArea.classList.add(`upOCorr`);
-                corridorArea.classList.add(`pathCorridor`);
-            } else {
-                corridorArea.classList.add(`pathCorridor`);
-            };
+            corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
-                corridorArea.classList.contains(`pathCorridor`) &&
-                surroundL.classList.contains(`pathCorridor`) &&
+                corridorArea.classList.contains(`pathCorridor`) ||
+                surroundL.classList.contains(`pathCorridor`) ||
                 surroundR.classList.contains(`pathCorridor`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
+                corridorArea.classList.add(`pathCorridor`);
+                console.log(`room${roomIdx} up corridor junction: ${corridorArea.id}`);
                 rPCorr = 1;
             } else {
                 rPCorr = 1;
@@ -167,7 +166,7 @@ const drawUpCorridor = (rPOCorr, cPCorr) => {
     };
 };
 
-const drawDownCorridor = (rPOCorr, cPCorr) => {
+const pathDownCorridor = (rPOCorr, cPCorr, roomIdx) => {
     // down corridor path
     for (let rPCorr = rPOCorr; rPCorr < 20; rPCorr++) {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
@@ -179,6 +178,9 @@ const drawDownCorridor = (rPOCorr, cPCorr) => {
             surroundRoomL = corridorArea;
             surroundRoomR = corridorArea;
         };
+        if (rPCorr == rPOCorr) {
+            corridorArea.classList.add(`downOCorr`);
+        };
         if (
             !corridorArea.classList.contains(`room`) &&
             !corridorArea.classList.contains(`pathCorridor`) &&
@@ -187,19 +189,16 @@ const drawDownCorridor = (rPOCorr, cPCorr) => {
             !surroundRoomL.classList.contains(`room`) &&
             !surroundRoomR.classList.contains(`room`)
         ) {
-            if (rPCorr == rPOCorr) {
-                corridorArea.classList.add(`downOCorr`);
-                corridorArea.classList.add(`pathCorridor`);
-            } else {
-                corridorArea.classList.add(`pathCorridor`);
-            };
+            corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
-                corridorArea.classList.contains(`pathCorridor`) &&
-                surroundL.classList.contains(`pathCorridor`) &&
+                corridorArea.classList.contains(`pathCorridor`) ||
+                surroundL.classList.contains(`pathCorridor`) ||
                 surroundR.classList.contains(`pathCorridor`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
+                corridorArea.classList.add(`pathCorridor`);
+                console.log(`room${roomIdx} down corridor junction: ${corridorArea.id}`);
                 rPCorr = 20;
             } else {
                 rPCorr = 20;
@@ -208,7 +207,7 @@ const drawDownCorridor = (rPOCorr, cPCorr) => {
     };
 };
 
-const drawLeftCorridor = (rPCorr, cPOCorr) => {
+const pathLeftCorridor = (rPCorr, cPOCorr, roomIdx) => {
     // left corridor path
     for (let cPCorr = cPOCorr; cPCorr > 1; cPCorr--) {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
@@ -220,6 +219,9 @@ const drawLeftCorridor = (rPCorr, cPOCorr) => {
             surroundRoomU = corridorArea;
             surroundRoomD = corridorArea;
         };
+        if (cPCorr == cPOCorr) {
+            corridorArea.classList.add(`leftOCorr`);
+        };
         if (
             !corridorArea.classList.contains(`room`) &&
             !corridorArea.classList.contains(`pathCorridor`) &&
@@ -228,19 +230,16 @@ const drawLeftCorridor = (rPCorr, cPOCorr) => {
             !surroundRoomU.classList.contains(`room`) &&
             !surroundRoomD.classList.contains(`room`)
         ) {
-            if (cPCorr == cPOCorr) {
-                corridorArea.classList.add(`leftOCorr`);
-                corridorArea.classList.add(`pathCorridor`);
-            } else {
-                corridorArea.classList.add(`pathCorridor`);
-            };
+            corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
-                corridorArea.classList.contains(`pathCorridor`) &&
-                surroundU.classList.contains(`pathCorridor`) &&
+                corridorArea.classList.contains(`pathCorridor`) ||
+                surroundU.classList.contains(`pathCorridor`) ||
                 surroundD.classList.contains(`pathCorridor`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
+                corridorArea.classList.add(`pathCorridor`);
+                console.log(`room${roomIdx} left corridor junction: ${corridorArea.id}`);
                 cPCorr = 1;
             } else {
                 cPCorr = 1;
@@ -249,7 +248,7 @@ const drawLeftCorridor = (rPCorr, cPOCorr) => {
     };
 };
 
-const drawRightCorridor = (rPCorr, cPOCorr) => {
+const pathRightCorridor = (rPCorr, cPOCorr, roomIdx) => {
     // right corridor path
     for (let cPCorr = cPOCorr; cPCorr < 32; cPCorr++) {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
@@ -261,6 +260,9 @@ const drawRightCorridor = (rPCorr, cPOCorr) => {
             surroundRoomU = corridorArea;
             surroundRoomD = corridorArea;
         };
+        if (cPCorr == cPOCorr) {
+            corridorArea.classList.add(`rightOCorr`);
+        };
         if (
             !corridorArea.classList.contains(`room`) &&
             !corridorArea.classList.contains(`pathCorridor`) &&
@@ -269,23 +271,170 @@ const drawRightCorridor = (rPCorr, cPOCorr) => {
             !surroundRoomU.classList.contains(`room`) &&
             !surroundRoomD.classList.contains(`room`)
         ) {
-            if (cPCorr == cPOCorr) {
-                corridorArea.classList.add(`rightOCorr`);
-                corridorArea.classList.add(`pathCorridor`);
-            } else {
-                corridorArea.classList.add(`pathCorridor`);
-            };
+            corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
-                corridorArea.classList.contains(`pathCorridor`) &&
-                surroundU.classList.contains(`pathCorridor`) &&
+                corridorArea.classList.contains(`pathCorridor`) ||
+                surroundU.classList.contains(`pathCorridor`) ||
                 surroundD.classList.contains(`pathCorridor`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
+                corridorArea.classList.add(`pathCorridor`);
+                console.log(`room${roomIdx} right corridor junction: ${corridorArea.id}`);
                 cPCorr = 32;
             } else {
                 cPCorr = 32;
             };
+        };
+    };
+};
+
+// corridor generation
+const corridorGeneration = () => {
+    // find junction
+    for (let r = 1; r <= 20; r++) {
+        for (let c = 1; c <= 32; c++) {
+            let currentPos = document.querySelector(`#r${r}c${c}`);
+            if ((currentPos.classList.contains(`joinCorr`) ||
+                currentPos.classList.contains(`leftOCorr`) ||
+                currentPos.classList.contains(`upOCorr`) ||
+                currentPos.classList.contains(`rightOCorr`) ||
+                currentPos.classList.contains(`downOCorr`)) &&
+                !currentPos.classList.contains(`room`)) {
+                console.log(`junction find at: ${currentPos.id}`);
+                drawLeftCorridor(r, c, currentPos);
+                drawRightCorridor(r, c, currentPos);
+                drawUpCorridor(r, c, currentPos);
+                drawDownCorridor(r, c, currentPos);
+            };
+        };
+    };
+};
+
+const drawLeftCorridor = (r, c, currentPos) => {
+    // find match from junction to left
+    for (let cLJFind = c; cLJFind > 1; cLJFind--) {
+        let matchPos = document.querySelector(`#r${r}c${cLJFind}`);
+        let oneFarPos = document.querySelector(`#r${r}c${cLJFind - 1}`);
+        if ((matchPos.classList.contains(`joinCorr`) ||
+            matchPos.classList.contains(`leftOCorr`) ||
+            matchPos.classList.contains(`upOCorr`) ||
+            matchPos.classList.contains(`rightOCorr`) ||
+            matchPos.classList.contains(`downOCorr`) ||
+            (
+                oneFarPos.classList.contains(`room`) &&
+                matchPos.classList.contains(`pathCorridor`)
+            )) &&
+            !matchPos.classList.contains(`room`) &&
+            matchPos.id != currentPos.id) {
+            console.log(`left match found at ${matchPos.id}`);
+            // draw left corridor between junction and match
+            for (let cDraw = c; cDraw >= cLJFind; cDraw--) {
+                let drawPos = document.querySelector(`#r${r}c${cDraw}`);
+                drawPos.classList.add(`corridor`);
+            };
+            console.log(`corridor generated between ${currentPos.id} & ${matchPos.id}`);
+            cLJFind = 1;
+        };
+        if (!matchPos.classList.contains(`pathCorridor`) || matchPos.classList.contains(`room`)) {
+            console.log(`No more left match from ${currentPos.id} at ${matchPos.id}`);
+            cLJFind = 1;
+        };
+    };
+};
+
+const drawRightCorridor = (r, c, currentPos) => {
+    // find match from junction to right
+    for (let cRJFind = c; cRJFind < 32; cRJFind++) {
+        let matchPos = document.querySelector(`#r${r}c${cRJFind}`);
+        let oneFarPos = document.querySelector(`#r${r}c${cRJFind + 1}`);
+        if ((matchPos.classList.contains(`joinCorr`) ||
+            matchPos.classList.contains(`leftOCorr`) ||
+            matchPos.classList.contains(`upOCorr`) ||
+            matchPos.classList.contains(`rightOCorr`) ||
+            matchPos.classList.contains(`downOCorr`) ||
+            (
+                oneFarPos.classList.contains(`room`) &&
+                matchPos.classList.contains(`pathCorridor`)
+            )) &&
+            !matchPos.classList.contains(`room`) &&
+            matchPos.id != currentPos.id) {
+            console.log(`right match found at ${matchPos.id}`);
+            // draw right corridor between junction and match
+            for (let cDraw = c; cDraw <= cRJFind; cDraw++) {
+                let drawPos = document.querySelector(`#r${r}c${cDraw}`);
+                drawPos.classList.add(`corridor`);
+            };
+            console.log(`corridor generated between ${currentPos.id} & ${matchPos.id}`);
+            cRJFind = 32;
+        };
+        if (!matchPos.classList.contains(`pathCorridor`) || matchPos.classList.contains(`room`)) {
+            console.log(`No more right match from ${currentPos.id} at ${matchPos.id}`);
+            cRJFind = 32;
+        };
+    };
+};
+
+const drawUpCorridor = (r, c, currentPos) => {
+    // find match from junction to up
+    for (let rUJFind = r; rUJFind > 1; rUJFind--) {
+        let matchPos = document.querySelector(`#r${rUJFind}c${c}`);
+        let oneFarPos = document.querySelector(`#r${rUJFind - 1}c${c}`);
+        if ((matchPos.classList.contains(`joinCorr`) ||
+            matchPos.classList.contains(`leftOCorr`) ||
+            matchPos.classList.contains(`upOCorr`) ||
+            matchPos.classList.contains(`rightOCorr`) ||
+            matchPos.classList.contains(`downOCorr`) ||
+            (
+                oneFarPos.classList.contains(`room`) &&
+                matchPos.classList.contains(`pathCorridor`)
+            )) &&
+            !matchPos.classList.contains(`room`) &&
+            matchPos.id != currentPos.id) {
+            console.log(`up match found at ${matchPos.id}`);
+            // draw up corridor between junction and match
+            for (let rDraw = r; rDraw >= rUJFind; rDraw--) {
+                let drawPos = document.querySelector(`#r${rDraw}c${c}`);
+                drawPos.classList.add(`corridor`);
+            };
+            console.log(`corridor generated between ${currentPos.id} & ${matchPos.id}`);
+            rUJFind = 1;
+        };
+        if (!matchPos.classList.contains(`pathCorridor`) || matchPos.classList.contains(`room`)) {
+            console.log(`No more up match from ${currentPos.id} at ${matchPos.id}`);
+            rUJFind = 1;
+        };
+    };
+};
+
+const drawDownCorridor = (r, c, currentPos) => {
+    // find match from junction to down
+    for (let rDJFind = r; rDJFind < 20; rDJFind++) {
+        let matchPos = document.querySelector(`#r${rDJFind}c${c}`);
+        let oneFarPos = document.querySelector(`#r${rDJFind + 1}c${c}`);
+        if ((matchPos.classList.contains(`joinCorr`) ||
+            matchPos.classList.contains(`leftOCorr`) ||
+            matchPos.classList.contains(`upOCorr`) ||
+            matchPos.classList.contains(`rightOCorr`) ||
+            matchPos.classList.contains(`downOCorr`) ||
+            (
+                oneFarPos.classList.contains(`room`) &&
+                matchPos.classList.contains(`pathCorridor`)
+            )) &&
+            !matchPos.classList.contains(`room`) &&
+            matchPos.id != currentPos.id) {
+            console.log(`down match found at ${matchPos.id}`);
+            // draw down corridor between junction and match
+            for (let rDraw = r; rDraw <= rDJFind; rDraw++) {
+                let drawPos = document.querySelector(`#r${rDraw}c${c}`);
+                drawPos.classList.add(`corridor`);
+            };
+            console.log(`corridor generated between ${currentPos.id} & ${matchPos.id}`);
+            rDJFind = 20;
+        };
+        if (!matchPos.classList.contains(`pathCorridor`) || matchPos.classList.contains(`room`)) {
+            console.log(`No more down match from ${currentPos.id} at ${matchPos.id}`);
+            rDJFind = 20;
         };
     };
 };
@@ -444,9 +593,10 @@ const spawnHero = () => {
     if (positionSpawn.classList.contains(`room`)) {
         positionSpawn.classList.add(`perso`);
         console.log(`spawn hero r:${r + 1} c:${c + 1}`);
+        initMove(r + 1, c + 1);
     } else {
         spawnHero();
-    }
+    };
 };
 
 //spawn monsters
@@ -455,20 +605,69 @@ const spawnMonster = (nM) => {
         let r = Math.floor(Math.random() * 20);
         let c = Math.floor(Math.random() * 32);
         let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
-        if (positionSpawn.classList.contains(`room`) && !positionSpawn.classList.contains(`perso`)) {
+        if ((positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`)) &&
+            !positionSpawn.classList.contains(`perso`)) {
             positionSpawn.classList.add(`monster`);
             console.log(`spawn monster${m} r:${r + 1} c:${c + 1}`);
         } else {
             m--;
             spawnMonster();
-        }
-    }
+        };
+    };
+};
+
+// move hero
+const initMove = (heroRPos, heroCPos) => {
+    console.log(`NIQUE JS`);
+    document.addEventListener("keyup", event => {
+        if (event.key === "z") {
+            let oneFar = document.querySelector(`#r${heroRPos - 1}c${heroCPos}`);
+            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+                let heroCurrent = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroCurrent.classList.remove('perso');
+                heroRPos = heroRPos - 1;
+                let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroNewPos.classList.add('perso');
+            };
+        };
+        if (event.key === "s") {
+            let oneFar = document.querySelector(`#r${heroRPos + 1}c${heroCPos}`);
+            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+                let heroCurrent = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroCurrent.classList.remove('perso');
+                heroRPos = heroRPos + 1;
+                let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroNewPos.classList.add('perso');
+            };
+        };
+        if (event.key === "q") {
+            let oneFar = document.querySelector(`#r${heroRPos}c${heroCPos - 1}`);
+            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+                let heroCurrent = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroCurrent.classList.remove('perso');
+                heroCPos = heroCPos - 1;
+                let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroNewPos.classList.add('perso');
+            };
+        };
+        if (event.key === "d") {
+            let oneFar = document.querySelector(`#r${heroRPos}c${heroCPos + 1}`);
+            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+                let heroCurrent = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroCurrent.classList.remove('perso');
+                heroCPos = heroCPos + 1;
+                let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
+                heroNewPos.classList.add('perso');
+            };
+        };
+    });
 };
 
 // appInit
 const appInit = () => {
     gameBoard();
     numberRooms();
+    corridorGeneration();
     wallGeneration();
     cornerWall();
 };
