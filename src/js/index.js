@@ -144,15 +144,21 @@ const pathUpCorridor = (rPOCorr, cPCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundL.classList.contains(`pathCorridor`) &&
             !surroundR.classList.contains(`pathCorridor`) &&
-            !surroundRoomL.classList.contains(`room`) &&
-            !surroundRoomR.classList.contains(`room`)
+            /*!surroundRoomL.classList.contains(`room`) &&
+            !surroundRoomR.classList.contains(`room`)*/
+            //test
+            !surroundL.classList.contains(`room`) &&
+            !surroundR.classList.contains(`room`)
         ) {
             corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundL.classList.contains(`pathCorridor`) ||
-                surroundR.classList.contains(`pathCorridor`)
+                surroundR.classList.contains(`pathCorridor`) ||
+                //test
+                surroundL.classList.contains(`room`) ||
+                surroundR.classList.contains(`room`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
                 corridorArea.classList.add(`pathCorridor`);
@@ -186,15 +192,21 @@ const pathDownCorridor = (rPOCorr, cPCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundL.classList.contains(`pathCorridor`) &&
             !surroundR.classList.contains(`pathCorridor`) &&
-            !surroundRoomL.classList.contains(`room`) &&
-            !surroundRoomR.classList.contains(`room`)
+            /*!surroundRoomL.classList.contains(`room`) &&
+            !surroundRoomR.classList.contains(`room`)*/
+            //test
+            !surroundL.classList.contains(`room`) &&
+            !surroundR.classList.contains(`room`)
         ) {
             corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundL.classList.contains(`pathCorridor`) ||
-                surroundR.classList.contains(`pathCorridor`)
+                surroundR.classList.contains(`pathCorridor`) ||
+                //test
+                surroundL.classList.contains(`room`) ||
+                surroundR.classList.contains(`room`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
                 corridorArea.classList.add(`pathCorridor`);
@@ -227,15 +239,21 @@ const pathLeftCorridor = (rPCorr, cPOCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundU.classList.contains(`pathCorridor`) &&
             !surroundD.classList.contains(`pathCorridor`) &&
-            !surroundRoomU.classList.contains(`room`) &&
-            !surroundRoomD.classList.contains(`room`)
+            /*!surroundRoomU.classList.contains(`room`) &&
+            !surroundRoomD.classList.contains(`room`)*/
+            //test
+            !surroundU.classList.contains(`room`) &&
+            !surroundD.classList.contains(`room`)
         ) {
             corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundU.classList.contains(`pathCorridor`) ||
-                surroundD.classList.contains(`pathCorridor`)
+                surroundD.classList.contains(`pathCorridor`) ||
+                //test
+                surroundU.classList.contains(`room`) &&
+                surroundD.classList.contains(`room`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
                 corridorArea.classList.add(`pathCorridor`);
@@ -268,15 +286,21 @@ const pathRightCorridor = (rPCorr, cPOCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundU.classList.contains(`pathCorridor`) &&
             !surroundD.classList.contains(`pathCorridor`) &&
-            !surroundRoomU.classList.contains(`room`) &&
-            !surroundRoomD.classList.contains(`room`)
+            /*!surroundRoomU.classList.contains(`room`) &&
+            !surroundRoomD.classList.contains(`room`)*/
+            //test
+            !surroundU.classList.contains(`room`) &&
+            !surroundD.classList.contains(`room`)
         ) {
             corridorArea.classList.add(`pathCorridor`);
         } else {
             if (
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundU.classList.contains(`pathCorridor`) ||
-                surroundD.classList.contains(`pathCorridor`)
+                surroundD.classList.contains(`pathCorridor`) ||
+                //test
+                surroundU.classList.contains(`room`) &&
+                surroundD.classList.contains(`room`)
             ) {
                 corridorArea.classList.add(`joinCorr`);
                 corridorArea.classList.add(`pathCorridor`);
