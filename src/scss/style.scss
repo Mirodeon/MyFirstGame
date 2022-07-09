@@ -85,6 +85,19 @@ body {
             }
         }
     }
+    footer{
+        #stuckBtn{
+            text-align: center;
+            box-sizing: border-box;
+            background-color: grey;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px auto;
+            box-shadow: 10px 5px 5px black;
+            cursor: pointer;
+        }
+    }
 }
 // mise en evidence de path corridor
 /*body {

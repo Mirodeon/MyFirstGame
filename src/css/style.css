@@ -70,6 +70,17 @@ body main #game .row .col.brasero {
   background-size: contain;
   background-repeat: no-repeat;
 }
+body footer #stuckBtn {
+  text-align: center;
+  box-sizing: border-box;
+  background-color: grey;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  margin: 5px auto;
+  box-shadow: 10px 5px 5px black;
+  cursor: pointer;
+}
 
 /*body {
     main {

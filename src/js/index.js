@@ -22,7 +22,7 @@ const gameBoard = () => {
 
 // spawn dungeon rooms
 const numberRooms = (posMonster) => {
-    // number of rooms spawned (7 <= 10)
+    // number of rooms spawned (7 <= nR <= 10)
     let nRCoeff = Math.floor(Math.random() * 4);
     let nR = nRCoeff + 7;
     console.log(`number of rooms: ${nR}`);
@@ -42,7 +42,7 @@ const positionRooms = (nR) => {
 };
 
 const sizeRoom = (rPO, cPO, roomIdx) => {
-    // size of rooms [(2 <= 7) x (2 <= 7)]
+    // size of rooms [(2 <= rS <= 7) x (2 <= cS <= 7)]
     let rSCoeff = Math.floor(Math.random() * 6);
     let cSCoeff = Math.floor(Math.random() * 6);
     let rS = 2 + rSCoeff;
@@ -60,7 +60,6 @@ const drawRoom = (rPO, cPO, rS, cS, roomIdx) => {
             let roomArea = document.querySelector(`#r${rPosition}c${cPosition}`)
             if (cPosition <= 31 && rPosition <= 19) {
                 roomArea.classList.add(`room`);
-                /*roomArea.classList.remove(`pathCorridor`);*/
             };
         };
     };
@@ -130,12 +129,6 @@ const pathUpCorridor = (rPOCorr, cPCorr, roomIdx) => {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
         let surroundL = document.querySelector(`#r${rPCorr}c${cPCorr - 1}`);
         let surroundR = document.querySelector(`#r${rPCorr}c${cPCorr + 1}`);
-        let surroundRoomL = document.querySelector(`#r${rPCorr + 1}c${cPCorr - 1}`);
-        let surroundRoomR = document.querySelector(`#r${rPCorr + 1}c${cPCorr + 1}`);
-        if (rPCorr + 1 > rPOCorr) {
-            surroundRoomL = corridorArea;
-            surroundRoomR = corridorArea;
-        };
         if (rPCorr == rPOCorr) {
             corridorArea.classList.add(`upOCorr`);
         };
@@ -144,9 +137,6 @@ const pathUpCorridor = (rPOCorr, cPCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundL.classList.contains(`pathCorridor`) &&
             !surroundR.classList.contains(`pathCorridor`) &&
-            /*!surroundRoomL.classList.contains(`room`) &&
-            !surroundRoomR.classList.contains(`room`)*/
-            //test
             !surroundL.classList.contains(`room`) &&
             !surroundR.classList.contains(`room`)
         ) {
@@ -156,7 +146,6 @@ const pathUpCorridor = (rPOCorr, cPCorr, roomIdx) => {
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundL.classList.contains(`pathCorridor`) ||
                 surroundR.classList.contains(`pathCorridor`) ||
-                //test
                 surroundL.classList.contains(`room`) ||
                 surroundR.classList.contains(`room`)
             ) {
@@ -178,12 +167,6 @@ const pathDownCorridor = (rPOCorr, cPCorr, roomIdx) => {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
         let surroundL = document.querySelector(`#r${rPCorr}c${cPCorr - 1}`);
         let surroundR = document.querySelector(`#r${rPCorr}c${cPCorr + 1}`);
-        let surroundRoomL = document.querySelector(`#r${rPCorr - 1}c${cPCorr - 1}`);
-        let surroundRoomR = document.querySelector(`#r${rPCorr - 1}c${cPCorr + 1}`);
-        if (rPCorr - 1 < rPOCorr) {
-            surroundRoomL = corridorArea;
-            surroundRoomR = corridorArea;
-        };
         if (rPCorr == rPOCorr) {
             corridorArea.classList.add(`downOCorr`);
         };
@@ -192,9 +175,6 @@ const pathDownCorridor = (rPOCorr, cPCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundL.classList.contains(`pathCorridor`) &&
             !surroundR.classList.contains(`pathCorridor`) &&
-            /*!surroundRoomL.classList.contains(`room`) &&
-            !surroundRoomR.classList.contains(`room`)*/
-            //test
             !surroundL.classList.contains(`room`) &&
             !surroundR.classList.contains(`room`)
         ) {
@@ -204,7 +184,6 @@ const pathDownCorridor = (rPOCorr, cPCorr, roomIdx) => {
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundL.classList.contains(`pathCorridor`) ||
                 surroundR.classList.contains(`pathCorridor`) ||
-                //test
                 surroundL.classList.contains(`room`) ||
                 surroundR.classList.contains(`room`)
             ) {
@@ -225,12 +204,6 @@ const pathLeftCorridor = (rPCorr, cPOCorr, roomIdx) => {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
         let surroundU = document.querySelector(`#r${rPCorr - 1}c${cPCorr}`);
         let surroundD = document.querySelector(`#r${rPCorr + 1}c${cPCorr}`);
-        let surroundRoomU = document.querySelector(`#r${rPCorr - 1}c${cPCorr + 1}`);
-        let surroundRoomD = document.querySelector(`#r${rPCorr + 1}c${cPCorr + 1}`);
-        if (cPCorr + 1 > cPOCorr) {
-            surroundRoomU = corridorArea;
-            surroundRoomD = corridorArea;
-        };
         if (cPCorr == cPOCorr) {
             corridorArea.classList.add(`leftOCorr`);
         };
@@ -239,9 +212,6 @@ const pathLeftCorridor = (rPCorr, cPOCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundU.classList.contains(`pathCorridor`) &&
             !surroundD.classList.contains(`pathCorridor`) &&
-            /*!surroundRoomU.classList.contains(`room`) &&
-            !surroundRoomD.classList.contains(`room`)*/
-            //test
             !surroundU.classList.contains(`room`) &&
             !surroundD.classList.contains(`room`)
         ) {
@@ -251,7 +221,6 @@ const pathLeftCorridor = (rPCorr, cPOCorr, roomIdx) => {
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundU.classList.contains(`pathCorridor`) ||
                 surroundD.classList.contains(`pathCorridor`) ||
-                //test
                 surroundU.classList.contains(`room`) &&
                 surroundD.classList.contains(`room`)
             ) {
@@ -272,12 +241,6 @@ const pathRightCorridor = (rPCorr, cPOCorr, roomIdx) => {
         let corridorArea = document.querySelector(`#r${rPCorr}c${cPCorr}`);
         let surroundU = document.querySelector(`#r${rPCorr - 1}c${cPCorr}`);
         let surroundD = document.querySelector(`#r${rPCorr + 1}c${cPCorr}`);
-        let surroundRoomU = document.querySelector(`#r${rPCorr - 1}c${cPCorr - 1}`);
-        let surroundRoomD = document.querySelector(`#r${rPCorr + 1}c${cPCorr - 1}`);
-        if (cPCorr - 1 < cPOCorr) {
-            surroundRoomU = corridorArea;
-            surroundRoomD = corridorArea;
-        };
         if (cPCorr == cPOCorr) {
             corridorArea.classList.add(`rightOCorr`);
         };
@@ -286,9 +249,6 @@ const pathRightCorridor = (rPCorr, cPOCorr, roomIdx) => {
             !corridorArea.classList.contains(`pathCorridor`) &&
             !surroundU.classList.contains(`pathCorridor`) &&
             !surroundD.classList.contains(`pathCorridor`) &&
-            /*!surroundRoomU.classList.contains(`room`) &&
-            !surroundRoomD.classList.contains(`room`)*/
-            //test
             !surroundU.classList.contains(`room`) &&
             !surroundD.classList.contains(`room`)
         ) {
@@ -298,7 +258,6 @@ const pathRightCorridor = (rPCorr, cPOCorr, roomIdx) => {
                 corridorArea.classList.contains(`pathCorridor`) ||
                 surroundU.classList.contains(`pathCorridor`) ||
                 surroundD.classList.contains(`pathCorridor`) ||
-                //test
                 surroundU.classList.contains(`room`) &&
                 surroundD.classList.contains(`room`)
             ) {
@@ -748,9 +707,21 @@ const moveMonster = (posMonster) => {
     };
 };
 
+// stuck button
+const stuckReset = () => {
+    let gameSet = document.querySelector('#game');
+    let stuckBtn = document.querySelector('#stuckBtn'); 
+    stuckBtn.addEventListener('click', () => {
+        gameSet.innerHTML = ``;
+        posMonster.length = 0;
+        appInit();
+        console.log('Reset !');
+    });
+};
+
 // appInit
+let posMonster = [];
 const appInit = () => {
-    let posMonster = [];
     gameBoard();
     numberRooms(posMonster);
     corridorGeneration();
@@ -760,3 +731,4 @@ const appInit = () => {
     console.log(posMonster);
 };
 appInit();
+stuckReset();
