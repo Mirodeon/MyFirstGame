@@ -21,14 +21,14 @@ const gameBoard = () => {
 };
 
 // spawn dungeon rooms
-const numberRooms = () => {
+const numberRooms = (posMonster) => {
     // number of rooms spawned (7 <= 10)
     let nRCoeff = Math.floor(Math.random() * 4);
     let nR = nRCoeff + 7;
     console.log(`number of rooms: ${nR}`);
     positionRooms(nR);
-    spawnHero();
-    spawnMonster(nR);
+    spawnHero(posMonster);
+    spawnMonster(nR, posMonster);
 };
 
 const positionRooms = (nR) => {
@@ -610,21 +610,21 @@ const cornerWall = () => {
 };
 
 // spawn hero
-const spawnHero = () => {
+const spawnHero = (posMonster) => {
     let r = Math.floor(Math.random() * 20);
     let c = Math.floor(Math.random() * 32);
     let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
     if (positionSpawn.classList.contains(`room`)) {
         positionSpawn.classList.add(`perso`);
         console.log(`spawn hero r:${r + 1} c:${c + 1}`);
-        initMove(r + 1, c + 1);
+        initMove(r + 1, c + 1, posMonster);
     } else {
-        spawnHero();
+        spawnHero(posMonster);
     };
 };
 
 //spawn monsters
-const spawnMonster = (nM) => {
+const spawnMonster = (nM, posMonster) => {
     for (let m = 1; m <= nM; m++) {
         let r = Math.floor(Math.random() * 20);
         let c = Math.floor(Math.random() * 32);
@@ -633,6 +633,12 @@ const spawnMonster = (nM) => {
             !positionSpawn.classList.contains(`perso`)) {
             positionSpawn.classList.add(`monster`);
             console.log(`spawn monster${m} r:${r + 1} c:${c + 1}`);
+            let pos = {
+                r: r + 1,
+                c: c + 1
+            };
+            posMonster.push(pos);
+
         } else {
             m--;
             spawnMonster();
@@ -641,8 +647,7 @@ const spawnMonster = (nM) => {
 };
 
 // move hero
-const initMove = (heroRPos, heroCPos) => {
-    console.log(`NIQUE JS`);
+const initMove = (heroRPos, heroCPos, posMonster) => {
     document.addEventListener("keyup", event => {
         if (event.key === "z") {
             let oneFar = document.querySelector(`#r${heroRPos - 1}c${heroCPos}`);
@@ -652,6 +657,7 @@ const initMove = (heroRPos, heroCPos) => {
                 heroRPos = heroRPos - 1;
                 let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
                 heroNewPos.classList.add('perso');
+                moveMonster(posMonster);
             };
         };
         if (event.key === "s") {
@@ -662,6 +668,7 @@ const initMove = (heroRPos, heroCPos) => {
                 heroRPos = heroRPos + 1;
                 let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
                 heroNewPos.classList.add('perso');
+                moveMonster(posMonster);
             };
         };
         if (event.key === "q") {
@@ -672,6 +679,7 @@ const initMove = (heroRPos, heroCPos) => {
                 heroCPos = heroCPos - 1;
                 let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
                 heroNewPos.classList.add('perso');
+                moveMonster(posMonster);
             };
         };
         if (event.key === "d") {
@@ -682,17 +690,73 @@ const initMove = (heroRPos, heroCPos) => {
                 heroCPos = heroCPos + 1;
                 let heroNewPos = document.querySelector(`#r${heroRPos}c${heroCPos}`);
                 heroNewPos.classList.add('perso');
+                moveMonster(posMonster);
             };
         };
     });
 };
 
+// move monster
+const moveMonster = (posMonster) => {
+    for (let i = 0; i < posMonster.length; i++) {
+        let randomMove = Math.floor(Math.random() * 4);
+        let currentPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
+        let uPos = document.querySelector(`#r${posMonster[i].r - 1}c${posMonster[i].c}`);
+        let rPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c + 1}`);
+        let dPos = document.querySelector(`#r${posMonster[i].r + 1}c${posMonster[i].c}`);
+        let lPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c - 1}`);
+        // up move
+        if (randomMove == 0 &&
+            !uPos.classList.contains('wall') &&
+            !uPos.classList.contains('monster') &&
+            !uPos.classList.contains('perso')) {
+            currentPos.classList.remove('monster');
+            posMonster[i].r--;
+            let newPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
+            newPos.classList.add('monster');
+        };
+        // right move
+        if (randomMove == 1 &&
+            !rPos.classList.contains('wall') &&
+            !rPos.classList.contains('monster') &&
+            !rPos.classList.contains('perso')) {
+            currentPos.classList.remove('monster');
+            posMonster[i].c++;
+            let newPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
+            newPos.classList.add('monster');
+        };
+        // down move
+        if (randomMove == 2 &&
+            !dPos.classList.contains('wall') &&
+            !dPos.classList.contains('monster') &&
+            !dPos.classList.contains('perso')) {
+            currentPos.classList.remove('monster');
+            posMonster[i].r++;
+            let newPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
+            newPos.classList.add('monster');
+        };
+        // left move
+        if (randomMove == 3 &&
+            !lPos.classList.contains('wall') &&
+            !lPos.classList.contains('monster') &&
+            !lPos.classList.contains('perso')) {
+            currentPos.classList.remove('monster');
+            posMonster[i].c--;
+            let newPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
+            newPos.classList.add('monster');
+        };
+    };
+};
+
 // appInit
 const appInit = () => {
+    let posMonster = [];
     gameBoard();
-    numberRooms();
+    numberRooms(posMonster);
     corridorGeneration();
     wallGeneration();
     cornerWall();
+    console.log(`monster position:`);
+    console.log(posMonster);
 };
 appInit();
