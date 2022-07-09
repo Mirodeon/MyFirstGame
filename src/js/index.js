@@ -652,6 +652,9 @@ const initMove = (heroRPos, heroCPos, posMonster) => {
                 moveMonster(posMonster);
             };
         };
+        if (event.key === " ") {
+            moveMonster(posMonster);
+        };
     });
 };
 
@@ -710,7 +713,7 @@ const moveMonster = (posMonster) => {
 // stuck button
 const stuckReset = () => {
     let gameSet = document.querySelector('#game');
-    let stuckBtn = document.querySelector('#stuckBtn'); 
+    let stuckBtn = document.querySelector('#stuckBtn');
     stuckBtn.addEventListener('click', () => {
         gameSet.innerHTML = ``;
         posMonster.length = 0;
