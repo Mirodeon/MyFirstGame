@@ -21,14 +21,14 @@ const gameBoard = () => {
 };
 
 // spawn dungeon rooms
-const numberRooms = (posMonster, posHero) => {
+const numberRooms = () => {
     // number of rooms spawned (7 <= nR <= 10)
     let nRCoeff = Math.floor(Math.random() * 4);
     let nR = nRCoeff + 7;
     console.log(`number of rooms: ${nR}`);
     positionRooms(nR);
-    spawnHero(posMonster, posHero);
-    spawnMonster(nR, posMonster);
+    spawnHero();
+    spawnMonster(nR);
 };
 
 const positionRooms = (nR) => {
@@ -569,7 +569,7 @@ const cornerWall = () => {
 };
 
 // spawn hero
-const spawnHero = (posMonster, posHero) => {
+const spawnHero = () => {
     let r = Math.floor(Math.random() * 20);
     let c = Math.floor(Math.random() * 32);
     let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
@@ -581,14 +581,14 @@ const spawnHero = (posMonster, posHero) => {
             c: c + 1
         };
         posHero.push(pos);
-        initMove(posHero, posMonster);
+        initMove();
     } else {
-        spawnHero(posMonster, posHero);
+        spawnHero();
     };
 };
 
 //spawn monsters
-const spawnMonster = (nM, posMonster) => {
+const spawnMonster = (nM) => {
     for (let m = 1; m <= nM; m++) {
         let r = Math.floor(Math.random() * 20);
         let c = Math.floor(Math.random() * 32);
@@ -611,61 +611,57 @@ const spawnMonster = (nM, posMonster) => {
 };
 
 // move hero
-const initMove = (posHero, posMonster) => {
-    document.addEventListener("keyup", event => {
-        if (event.key === "z") {
-            let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
-            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-                let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroCurrent.classList.remove('perso');
-                posHero[0].r--;
-                /*let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroNewPos.classList.add('perso');*/
-                oneFar.classList.add('perso');
-                moveMonster(posMonster);
-            };
+const moveHero = (event) => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    if (event.key === "z") {
+        let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
+        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+            heroCurrent.classList.remove('perso');
+            posHero[0].r--;
+            oneFar.classList.add('perso');
+            moveMonster();
         };
-        if (event.key === "s") {
-            let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
-            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-                let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroCurrent.classList.remove('perso');
-                posHero[0].r++;
-                let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroNewPos.classList.add('perso');
-                moveMonster(posMonster);
-            };
+    };
+    if (event.key === "s") {
+        let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
+        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+            heroCurrent.classList.remove('perso');
+            posHero[0].r++;
+            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+            heroNewPos.classList.add('perso');
+            moveMonster();
         };
-        if (event.key === "q") {
-            let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
-            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-                let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroCurrent.classList.remove('perso');
-                posHero[0].c--;
-                let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroNewPos.classList.add('perso');
-                moveMonster(posMonster);
-            };
+    };
+    if (event.key === "q") {
+        let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
+        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+            heroCurrent.classList.remove('perso');
+            posHero[0].c--;
+            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+            heroNewPos.classList.add('perso');
+            moveMonster();
         };
-        if (event.key === "d") {
-            let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
-            if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-                let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroCurrent.classList.remove('perso');
-                posHero[0].c++;
-                let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-                heroNewPos.classList.add('perso');
-                moveMonster(posMonster);
-            };
+    };
+    if (event.key === "d") {
+        let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
+        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+            heroCurrent.classList.remove('perso');
+            posHero[0].c++;
+            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+            heroNewPos.classList.add('perso');
+            moveMonster();
         };
-        if (event.key === " ") {
-            moveMonster(posMonster);
-        };
-    });
+    };
+    if (event.key === " ") {
+        moveMonster();
+    };
+};
+const initMove = () => {
+    document.addEventListener("keyup", moveHero);
 };
 
 // move monster
-const moveMonster = (posMonster) => {
+const moveMonster = () => {
     for (let i = 0; i < posMonster.length; i++) {
         let randomMove = Math.floor(Math.random() * 4);
         let currentPos = document.querySelector(`#r${posMonster[i].r}c${posMonster[i].c}`);
@@ -721,6 +717,7 @@ const stuckReset = () => {
     let gameSet = document.querySelector('#game');
     let stuckBtn = document.querySelector('#stuckBtn');
     stuckBtn.addEventListener('click', () => {
+        document.removeEventListener('keyup', moveHero);
         gameSet.innerHTML = ``;
         posMonster.length = 0;
         posHero.length = 0;
