@@ -52,6 +52,14 @@ body {
                         background-repeat: no-repeat;
                     }
 
+                    &.stairs {
+                        background-image: url('../img/stairs.png');
+                        background-color: grey;
+                        background-position: center;
+                        background-size: 32px 32px;
+                        background-repeat: no-repeat;
+                    }
+
                     &.monster {
                         background-image: url('../img/monster1.png');
                         background-position: center;
@@ -81,12 +89,14 @@ body {
                         background-size: contain;
                         background-repeat: no-repeat;
                     }
+
                 }
             }
         }
     }
-    footer{
-        #stuckBtn{
+
+    footer {
+        #stuckBtn {
             text-align: center;
             box-sizing: border-box;
             background-color: grey;
@@ -99,6 +109,7 @@ body {
         }
     }
 }
+
 // mise en evidence de path corridor
 /*body {
     main {

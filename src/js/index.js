@@ -610,6 +610,26 @@ const spawnMonster = (nM) => {
     };
 };
 
+// spawn stairs
+const spawnStairs = () => {
+    let r = Math.floor(Math.random() * 20);
+    let c = Math.floor(Math.random() * 32);
+    let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
+    if ((positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`)) &&
+        !positionSpawn.classList.contains(`perso`) && !positionSpawn.classList.contains(`monster`)) {
+        positionSpawn.classList.add('stairs');
+        console.log(`spawn stairs at r:${r + 1} c:${c + 1}`);
+        let pos = {
+            r: r + 1,
+            c: c + 1
+        };
+        posStairs.push(pos);
+
+    } else {
+        spawnStairs();
+    };
+};
+
 // move hero
 const moveHero = (event) => {
     let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
@@ -653,9 +673,15 @@ const moveHero = (event) => {
         };
     };
     if (event.key === " ") {
-        moveMonster();
+        if (heroCurrent.classList.contains(`stairs`)) {
+            reset();
+            console.log(`Yay new floor !`);
+        } else {
+            moveMonster();
+        };
     };
 };
+
 const initMove = () => {
     document.addEventListener("keyup", moveHero);
 };
@@ -714,31 +740,39 @@ const moveMonster = () => {
 
 // stuck button
 const stuckReset = () => {
-    let gameSet = document.querySelector('#game');
     let stuckBtn = document.querySelector('#stuckBtn');
-    stuckBtn.addEventListener('click', () => {
-        document.removeEventListener('keyup', moveHero);
+    stuckBtn.addEventListener('click', reset);
+    
+};
+
+const reset = () => {
+    let gameSet = document.querySelector('#game');
+    document.removeEventListener('keyup', moveHero);
         gameSet.innerHTML = ``;
         posMonster.length = 0;
         posHero.length = 0;
+        posStairs.length = 0;
         appInit();
         console.log('Reset !');
-    });
 };
 
 // appInit
 let posMonster = [];
 let posHero = [];
+let posStairs = [];
 const appInit = () => {
     gameBoard();
-    numberRooms(posMonster, posHero);
+    numberRooms();
     corridorGeneration();
     wallGeneration();
     cornerWall();
+    spawnStairs();
     console.log(`monster position:`);
     console.log(posMonster);
     console.log(`hero position:`);
     console.log(posHero);
+    console.log(`stairs position:`);
+    console.log(posStairs);
 };
 appInit();
 stuckReset();
