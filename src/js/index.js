@@ -514,6 +514,7 @@ const cornerWall = () => {
                 !cornerInfL.classList.contains(`corridor`)
             ) {
                 cornerInfL.classList.add(`brasero`);
+                cornerInfL.style.borderBottomLeftRadius = "50%";
                 downL++;
             };
             if (r != 20 &&
@@ -528,6 +529,7 @@ const cornerWall = () => {
                 !cornerInfR.classList.contains(`corridor`)
             ) {
                 cornerInfR.classList.add(`brasero`);
+                cornerInfR.style.borderBottomRightRadius = "50%";
                 downR++;
             };
             if (
@@ -543,6 +545,7 @@ const cornerWall = () => {
                 !cornerSupL.classList.contains(`corridor`)
             ) {
                 cornerSupL.classList.add(`brasero`);
+                cornerSupL.style.borderTopLeftRadius = "50%";
                 upL++;
             };
             if (
@@ -558,6 +561,7 @@ const cornerWall = () => {
                 !cornerSupR.classList.contains(`corridor`)
             ) {
                 cornerSupR.classList.add(`brasero`);
+                cornerSupR.style.borderTopRightRadius = "50%";
                 upR++;
             };
         };
@@ -717,56 +721,53 @@ const initMove = () => {
 // move up
 const moveUp = () => {
     let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let movePad = [...document.querySelectorAll('.heroPad')];
     let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
         posHero[0].r--;
         oneFar.classList.add('perso');
-        padMove(movePad);
+        padMove();
         moveMonster();
+        checkAvailablePad();
     };
 };
 // move down
 const moveDown = () => {
     let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let movePad = [...document.querySelectorAll('.heroPad')];
     let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
         posHero[0].r++;
-        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-        heroNewPos.classList.add('perso');
-        padMove(movePad);
+        oneFar.classList.add('perso');
+        padMove();
         moveMonster();
+        checkAvailablePad();
     };
 };
 // move left
 const moveLeft = () => {
     let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let movePad = [...document.querySelectorAll('.heroPad')];
     let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
         posHero[0].c--;
-        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-        heroNewPos.classList.add('perso');
-        padMove(movePad);
+        oneFar.classList.add('perso');
+        padMove();
         moveMonster();
+        checkAvailablePad();
     };
 };
 //move right
 const moveRight = () => {
     let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let movePad = [...document.querySelectorAll('.heroPad')];
     let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
         posHero[0].c++;
-        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-        heroNewPos.classList.add('perso');
-        padMove(movePad);
+        oneFar.classList.add('perso');
+        padMove();
         moveMonster();
+        checkAvailablePad();
     };
 };
 
@@ -779,10 +780,12 @@ const neutralAction = () => {
     } else {
         moveMonster();
     };
+    checkAvailablePad();
 };
 
 // move pad
-const padMove = (movePad) => {
+const padMove = () => {
+    let movePad = [...document.querySelectorAll('.heroPad')];
     for (let i = 0; i <= 4; i++) {
         if (i == 0) {
             // hero pad
@@ -874,6 +877,42 @@ const moveMonster = () => {
     };
 };
 
+// availablety of pad
+const checkAvailablePad = () => {
+    let upPos = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
+    let downPos = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
+    let leftPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
+    let rightPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
+    // up pad check & set visibility
+    if (upPos.classList.contains('wall') || upPos.classList.contains('monster') || upPos.classList.contains('stairs')) {
+        let upPad = document.querySelector('#upPad');
+        upPad.style.visibility = "hidden";
+    } else {
+        upPad.style.visibility = "visible";
+    };
+    // down pad check & set visibility
+    if (downPos.classList.contains('wall') || downPos.classList.contains('monster') || downPos.classList.contains('stairs')) {
+        let downPad = document.querySelector('#downPad');
+        downPad.style.visibility = "hidden";
+    } else {
+        downPad.style.visibility = "visible";
+    };
+    // left pad check & set visibility
+    if (leftPos.classList.contains('wall') || leftPos.classList.contains('monster') || leftPos.classList.contains('stairs')) {
+        let leftPad = document.querySelector('#leftPad');
+        leftPad.style.visibility = "hidden";
+    } else {
+        leftPad.style.visibility = "visible";
+    };
+    // right pad check & set visibility
+    if (rightPos.classList.contains('wall') || rightPos.classList.contains('monster') || rightPos.classList.contains('stairs')) {
+        let rightPad = document.querySelector('#rightPad');
+        rightPad.style.visibility = "hidden";
+    } else {
+        rightPad.style.visibility = "visible";
+    };
+};
+
 // move monster auto
 /*window.setInterval(moveMonster, 500);*/
 
@@ -881,7 +920,6 @@ const moveMonster = () => {
 const stuckReset = () => {
     let stuckBtn = document.querySelector('#stuckBtn');
     stuckBtn.addEventListener('click', reset);
-
 };
 
 // new game
@@ -907,6 +945,7 @@ const appInit = () => {
     wallGeneration();
     cornerWall();
     spawnStairs();
+    checkAvailablePad();
     console.log(`monster position:`);
     console.log(posMonster);
     console.log(`hero position:`);

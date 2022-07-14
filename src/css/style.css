@@ -17,6 +17,7 @@ body header nav {
 body main {
   width: 1024px;
   margin: 0px auto;
+  background-color: black;
 }
 body main #game {
   position: relative;
@@ -90,11 +91,39 @@ body main #game .row .col.brasero {
   background-repeat: no-repeat;
 }
 body main #game .heroPad {
-  background-color: rgba(255, 255, 0, 0.3);
+  /*background-color: rgba(255, 255, 0, 0.3);*/
   width: 32px;
   height: 32px;
   box-sizing: border-box;
   position: absolute;
+}
+body main #game .heroPad#upPad {
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 32px solid rgba(255, 255, 0, 0.3);
+}
+body main #game .heroPad#downPad {
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 32px solid rgba(255, 255, 0, 0.3);
+}
+body main #game .heroPad#leftPad {
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-right: 32px solid rgba(255, 255, 0, 0.3);
+}
+body main #game .heroPad#rightPad {
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 32px solid rgba(255, 255, 0, 0.3);
 }
 body main #game .heroPad:hover {
   filter: drop-shadow(0px 0px 10px rgb(255, 255, 0));
