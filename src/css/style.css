@@ -15,8 +15,11 @@ body header nav {
   text-align: center;
 }
 body main {
-  max-width: 1024px;
+  width: 1024px;
   margin: 0px auto;
+}
+body main #game {
+  position: relative;
 }
 body main #game .row {
   display: flex;
@@ -36,6 +39,11 @@ body main #game .row .col.room {
   background-size: contain;
   background-repeat: no-repeat;
 }
+body main #game .row .col.room:hover {
+  border: 1px solid rgb(0, 65, 135);
+  background-color: rgb(0, 65, 135);
+  filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
+}
 body main #game .row .col.corridor {
   border: 1px solid rgb(60, 60, 60);
   background-image: url("../img/ground1.png");
@@ -43,6 +51,11 @@ body main #game .row .col.corridor {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+body main #game .row .col.corridor:hover {
+  border: 1px solid rgb(0, 65, 135);
+  background-color: rgb(0, 65, 135);
+  filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
 }
 body main #game .row .col.stairs {
   background-image: url("../img/stairs.png");
@@ -56,6 +69,12 @@ body main #game .row .col.monster {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+body main #game .row .col.monster:hover {
+  border: 1px solid rgb(175, 0, 0);
+  background-color: rgb(175, 0, 0);
+  filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
+  cursor: pointer;
 }
 body main #game .row .col.perso {
   background-image: url("../img/heroM.png");
@@ -76,6 +95,24 @@ body main #game .row .col.brasero {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+body main #game .heroPad {
+  background-color: rgba(255, 255, 0, 0.3);
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  position: absolute;
+}
+body main #game .heroPad:hover {
+  filter: drop-shadow(0px 0px 10px rgb(255, 255, 0));
+  cursor: pointer;
+}
+body main #game .heroPad#entityHero {
+  background-color: initial;
+}
+body main #game .heroPad#entityHero img {
+  display: block;
+  width: 100%;
 }
 body footer #stuckBtn {
   text-align: center;

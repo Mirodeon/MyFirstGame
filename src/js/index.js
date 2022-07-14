@@ -581,6 +581,56 @@ const spawnHero = () => {
             c: c + 1
         };
         posHero.push(pos);
+
+        for (let i = 0; i <= 4; i++) {
+            // pad generation
+            let gameSet = document.querySelector('#game');
+            let addPad = document.createElement('div');
+            gameSet.append(addPad);
+            gameSet.lastChild.classList.add(`heroPad`);
+            if (i == 0) {
+                // hero pad
+                let addImg = document.createElement('img');
+                gameSet.lastChild.setAttribute("id", `entityHero`);
+                let posR = (posHero[0].r - 1) * 32;
+                let posC = (posHero[0].c - 1) * 32;
+                gameSet.lastChild.style.left = `${posC}px`;
+                gameSet.lastChild.style.top = `${posR}px`;
+                gameSet.lastChild.append(addImg);
+            };
+            if (i == 1) {
+                // up pad
+                gameSet.lastChild.setAttribute("id", `upPad`);
+                let posR = (posHero[0].r - 2) * 32;
+                let posC = (posHero[0].c - 1) * 32;
+                gameSet.lastChild.style.left = `${posC}px`;
+                gameSet.lastChild.style.top = `${posR}px`;
+            };
+            if (i == 2) {
+                // down pad
+                gameSet.lastChild.setAttribute("id", `downPad`);
+                let posR = (posHero[0].r) * 32;
+                let posC = (posHero[0].c - 1) * 32;
+                gameSet.lastChild.style.left = `${posC}px`;
+                gameSet.lastChild.style.top = `${posR}px`;
+            };
+            if (i == 3) {
+                // left pad
+                gameSet.lastChild.setAttribute("id", `leftPad`);
+                let posR = (posHero[0].r - 1) * 32;
+                let posC = (posHero[0].c - 2) * 32;
+                gameSet.lastChild.style.left = `${posC}px`;
+                gameSet.lastChild.style.top = `${posR}px`;
+            };
+            if (i == 4) {
+                // right pad
+                gameSet.lastChild.setAttribute("id", `rightPad`);
+                let posR = (posHero[0].r - 1) * 32;
+                let posC = (posHero[0].c) * 32;
+                gameSet.lastChild.style.left = `${posC}px`;
+                gameSet.lastChild.style.top = `${posR}px`;
+            };
+        };
         initMove();
     } else {
         spawnHero();
@@ -615,7 +665,8 @@ const spawnStairs = () => {
     let r = Math.floor(Math.random() * 20);
     let c = Math.floor(Math.random() * 32);
     let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
-    if ((positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`)) &&
+    if (/*(positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`))*/
+        positionSpawn.classList.contains(`room`) &&
         !positionSpawn.classList.contains(`perso`) && !positionSpawn.classList.contains(`monster`)) {
         positionSpawn.classList.add('stairs');
         console.log(`spawn stairs at r:${r + 1} c:${c + 1}`);
@@ -624,53 +675,24 @@ const spawnStairs = () => {
             c: c + 1
         };
         posStairs.push(pos);
-
     } else {
         spawnStairs();
     };
 };
 
 // move hero
-const moveHero = (event) => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+const moveHeroKey = (event) => {
     if (event.key === "z") {
-        let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
-        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-            heroCurrent.classList.remove('perso');
-            posHero[0].r--;
-            oneFar.classList.add('perso');
-            moveMonster();
-        };
+        moveUp();
     };
     if (event.key === "s") {
-        let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
-        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-            heroCurrent.classList.remove('perso');
-            posHero[0].r++;
-            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-            heroNewPos.classList.add('perso');
-            moveMonster();
-        };
+        moveDown();
     };
     if (event.key === "q") {
-        let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
-        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-            heroCurrent.classList.remove('perso');
-            posHero[0].c--;
-            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-            heroNewPos.classList.add('perso');
-            moveMonster();
-        };
+        moveLeft();
     };
     if (event.key === "d") {
-        let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
-        if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
-            heroCurrent.classList.remove('perso');
-            posHero[0].c++;
-            let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-            heroNewPos.classList.add('perso');
-            moveMonster();
-        };
+        moveRight();
     };
     if (event.key === " ") {
         if (heroCurrent.classList.contains(`stairs`)) {
@@ -683,7 +705,112 @@ const moveHero = (event) => {
 };
 
 const initMove = () => {
-    document.addEventListener("keyup", moveHero);
+    let upPad = document.querySelector('#upPad');
+    let downPad = document.querySelector('#downPad');
+    let leftPad = document.querySelector('#leftPad');
+    let rightPad = document.querySelector('#rightPad');
+    upPad.addEventListener("click", moveUp);
+    downPad.addEventListener("click", moveDown);
+    leftPad.addEventListener("click", moveLeft);
+    rightPad.addEventListener("click", moveRight);
+    document.addEventListener("keyup", moveHeroKey);
+};
+
+// move up
+const moveUp = () => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    let movePad = [...document.querySelectorAll('.heroPad')];
+    let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
+    if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+        heroCurrent.classList.remove('perso');
+        posHero[0].r--;
+        oneFar.classList.add('perso');
+        padMove(movePad);
+        moveMonster();
+    };
+};
+// move down
+const moveDown = () => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    let movePad = [...document.querySelectorAll('.heroPad')];
+    let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
+    if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+        heroCurrent.classList.remove('perso');
+        posHero[0].r++;
+        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+        heroNewPos.classList.add('perso');
+        padMove(movePad);
+        moveMonster();
+    };
+};
+// move left
+const moveLeft = () => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    let movePad = [...document.querySelectorAll('.heroPad')];
+    let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
+    if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+        heroCurrent.classList.remove('perso');
+        posHero[0].c--;
+        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+        heroNewPos.classList.add('perso');
+        padMove(movePad);
+        moveMonster();
+    };
+};
+//move right
+const moveRight = () => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    let movePad = [...document.querySelectorAll('.heroPad')];
+    let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
+    if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
+        heroCurrent.classList.remove('perso');
+        posHero[0].c++;
+        let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+        heroNewPos.classList.add('perso');
+        padMove(movePad);
+        moveMonster();
+    };
+};
+
+// move pad
+const padMove = (movePad) => {
+    for (let i = 0; i <= 4; i++) {
+        if (i == 0) {
+            // hero pad
+            let posR = (posHero[0].r - 1) * 32;
+            let posC = (posHero[0].c - 1) * 32;
+            movePad[i].style.left = `${posC}px`;
+            movePad[i].style.top = `${posR}px`;
+        };
+        if (i == 1) {
+            // up pad
+            let posR = (posHero[0].r - 2) * 32;
+            let posC = (posHero[0].c - 1) * 32;
+            movePad[i].style.left = `${posC}px`;
+            movePad[i].style.top = `${posR}px`;
+        };
+        if (i == 2) {
+            // down pad
+            let posR = (posHero[0].r) * 32;
+            let posC = (posHero[0].c - 1) * 32;
+            movePad[i].style.left = `${posC}px`;
+            movePad[i].style.top = `${posR}px`;
+        };
+        if (i == 3) {
+            // left pad
+            let posR = (posHero[0].r - 1) * 32;
+            let posC = (posHero[0].c - 2) * 32;
+            movePad[i].style.left = `${posC}px`;
+            movePad[i].style.top = `${posR}px`;
+        };
+        if (i == 4) {
+            // right pad 
+            let posR = (posHero[0].r - 1) * 32;
+            let posC = (posHero[0].c) * 32;
+            movePad[i].style.left = `${posC}px`;
+            movePad[i].style.top = `${posR}px`;
+        };
+    };
 };
 
 // move monster
@@ -738,22 +865,26 @@ const moveMonster = () => {
     };
 };
 
+// move monster auto
+/*window.setInterval(moveMonster, 500);*/
+
 // stuck button
 const stuckReset = () => {
     let stuckBtn = document.querySelector('#stuckBtn');
     stuckBtn.addEventListener('click', reset);
-    
+
 };
 
+// new game
 const reset = () => {
     let gameSet = document.querySelector('#game');
-    document.removeEventListener('keyup', moveHero);
-        gameSet.innerHTML = ``;
-        posMonster.length = 0;
-        posHero.length = 0;
-        posStairs.length = 0;
-        appInit();
-        console.log('Reset !');
+    document.removeEventListener('keyup', moveHeroKey);
+    gameSet.innerHTML = ``;
+    posMonster.length = 0;
+    posHero.length = 0;
+    posStairs.length = 0;
+    appInit();
+    console.log('Reset !');
 };
 
 // appInit
