@@ -597,6 +597,7 @@ const spawnHero = () => {
                 gameSet.lastChild.style.left = `${posC}px`;
                 gameSet.lastChild.style.top = `${posR}px`;
                 gameSet.lastChild.append(addImg);
+                addImg.src = './src/img/heroM.png';
             };
             if (i == 1) {
                 // up pad

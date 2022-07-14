@@ -30,6 +30,8 @@ body main #game .row .col {
   box-sizing: border-box;
   /*border: 1px solid rgb(60, 60, 60);*/
   background: black;
+  /*&.perso {
+  }*/
 }
 body main #game .row .col.room {
   border: 1px solid rgb(60, 60, 60);
@@ -40,7 +42,6 @@ body main #game .row .col.room {
   background-repeat: no-repeat;
 }
 body main #game .row .col.room:hover {
-  border: 1px solid rgb(0, 65, 135);
   background-color: rgb(0, 65, 135);
   filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
 }
@@ -53,7 +54,6 @@ body main #game .row .col.corridor {
   background-repeat: no-repeat;
 }
 body main #game .row .col.corridor:hover {
-  border: 1px solid rgb(0, 65, 135);
   background-color: rgb(0, 65, 135);
   filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
 }
@@ -71,16 +71,9 @@ body main #game .row .col.monster {
   background-repeat: no-repeat;
 }
 body main #game .row .col.monster:hover {
-  border: 1px solid rgb(175, 0, 0);
   background-color: rgb(175, 0, 0);
   filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
   cursor: pointer;
-}
-body main #game .row .col.perso {
-  background-image: url("../img/heroM.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 body main #game .row .col.wall {
   background-image: url("../img/wall.png");
@@ -109,6 +102,10 @@ body main #game .heroPad:hover {
 }
 body main #game .heroPad#entityHero {
   background-color: initial;
+}
+body main #game .heroPad#entityHero:hover {
+  background-color: rgba(0, 190, 0, 0.3);
+  filter: drop-shadow(0px 0px 10px rgb(0, 190, 0));
 }
 body main #game .heroPad#entityHero img {
   display: block;
