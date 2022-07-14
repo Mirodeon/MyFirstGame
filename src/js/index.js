@@ -696,12 +696,7 @@ const moveHeroKey = (event) => {
         moveRight();
     };
     if (event.key === " ") {
-        if (heroCurrent.classList.contains(`stairs`)) {
-            reset();
-            console.log(`Yay new floor !`);
-        } else {
-            moveMonster();
-        };
+        neutralAction();
     };
 };
 
@@ -710,10 +705,12 @@ const initMove = () => {
     let downPad = document.querySelector('#downPad');
     let leftPad = document.querySelector('#leftPad');
     let rightPad = document.querySelector('#rightPad');
+    let heroPad = document.querySelector('#entityHero');
     upPad.addEventListener("click", moveUp);
     downPad.addEventListener("click", moveDown);
     leftPad.addEventListener("click", moveLeft);
     rightPad.addEventListener("click", moveRight);
+    heroPad.addEventListener("click", neutralAction);
     document.addEventListener("keyup", moveHeroKey);
 };
 
@@ -769,6 +766,17 @@ const moveRight = () => {
         let heroNewPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
         heroNewPos.classList.add('perso');
         padMove(movePad);
+        moveMonster();
+    };
+};
+
+// neutral action
+const neutralAction = () => {
+    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    if (heroCurrent.classList.contains(`stairs`)) {
+        reset();
+        console.log(`Yay new floor !`);
+    } else {
         moveMonster();
     };
 };
