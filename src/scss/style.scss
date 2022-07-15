@@ -40,7 +40,7 @@ body {
                     &.room {
                         border: 1px solid rgb(60, 60, 60);
                         background-image: url('../img/ground1.png');
-                        background-color: grey;
+                        background-color: rgba(128, 128, 128, 0.9);
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
@@ -54,7 +54,7 @@ body {
                     &.corridor {
                         border: 1px solid rgb(60, 60, 60);
                         background-image: url('../img/ground1.png');
-                        background-color: grey;
+                        background-color: rgba(128, 128, 128, 0.9);
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
@@ -66,32 +66,22 @@ body {
                     }
 
                     &.stairs {
-                        background-image: url('../img/stairs.png');
-                        background-color: grey;
+                        background-image: url('../img/stairs1.png');
+                        background-color: rgba(128, 128, 128, 0.9);
                         background-position: center;
-                        background-size: 32px 32px;
+                        background-size: 50px 50px;
                         background-repeat: no-repeat;
                     }
 
-                    &.monster {
-                        background-image: url('../img/monster1.png');
-                        background-position: center;
-                        background-size: contain;
-                        background-repeat: no-repeat;
-
-                        &:hover {
-                            background-color: rgb(175, 0, 0);
-                            filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
-                            cursor: pointer;
-                        }
-                    }
+                    /*&.monster {
+                    }*/
 
                     /*&.perso {
                     }*/
 
                     &.wall {
                         background-image: url('../img/wall.png');
-                        background-color: grey;
+                        background-color: rgb(128, 128, 128);
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
@@ -99,7 +89,7 @@ body {
 
                     &.brasero {
                         background-image: url('../img/brasero.png');
-                        background-color: grey;
+                        background-color: rgb(128, 128, 128);
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;
@@ -109,7 +99,6 @@ body {
             }
 
             .heroPad {
-                /*background-color: rgba(255, 255, 0, 0.3);*/
                 width: 32px;
                 height: 32px;
                 box-sizing: border-box;
@@ -162,8 +151,28 @@ body {
 
                     img {
                         display: block;
+                        height: 100%;
                         width: 100%;
                     }
+                }
+            }
+
+            .monsterPad {
+                width: 32px;
+                height: 32px;
+                box-sizing: border-box;
+                position: absolute;
+
+                &:hover {
+                    background-color: rgb(175, 0, 0, 0.3);
+                    filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
+                    cursor: pointer;
+                }
+
+                img {
+                    display: block;
+                    height: 100%;
+                    width: 100%;
                 }
             }
         }

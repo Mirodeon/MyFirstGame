@@ -31,13 +31,15 @@ body main #game .row .col {
   box-sizing: border-box;
   /*border: 1px solid rgb(60, 60, 60);*/
   background: black;
+  /*&.monster {
+  }*/
   /*&.perso {
   }*/
 }
 body main #game .row .col.room {
   border: 1px solid rgb(60, 60, 60);
   background-image: url("../img/ground1.png");
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.9);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -49,7 +51,7 @@ body main #game .row .col.room:hover {
 body main #game .row .col.corridor {
   border: 1px solid rgb(60, 60, 60);
   background-image: url("../img/ground1.png");
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.9);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -59,39 +61,27 @@ body main #game .row .col.corridor:hover {
   filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
 }
 body main #game .row .col.stairs {
-  background-image: url("../img/stairs.png");
-  background-color: grey;
+  background-image: url("../img/stairs1.png");
+  background-color: rgba(128, 128, 128, 0.9);
   background-position: center;
-  background-size: 32px 32px;
+  background-size: 50px 50px;
   background-repeat: no-repeat;
-}
-body main #game .row .col.monster {
-  background-image: url("../img/monster1.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-body main #game .row .col.monster:hover {
-  background-color: rgb(175, 0, 0);
-  filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
-  cursor: pointer;
 }
 body main #game .row .col.wall {
   background-image: url("../img/wall.png");
-  background-color: grey;
+  background-color: rgb(128, 128, 128);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
 body main #game .row .col.brasero {
   background-image: url("../img/brasero.png");
-  background-color: grey;
+  background-color: rgb(128, 128, 128);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
 body main #game .heroPad {
-  /*background-color: rgba(255, 255, 0, 0.3);*/
   width: 32px;
   height: 32px;
   box-sizing: border-box;
@@ -138,6 +128,23 @@ body main #game .heroPad#entityHero:hover {
 }
 body main #game .heroPad#entityHero img {
   display: block;
+  height: 100%;
+  width: 100%;
+}
+body main #game .monsterPad {
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  position: absolute;
+}
+body main #game .monsterPad:hover {
+  background-color: rgba(175, 0, 0, 0.3);
+  filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
+  cursor: pointer;
+}
+body main #game .monsterPad img {
+  display: block;
+  height: 100%;
   width: 100%;
 }
 body footer #stuckBtn {
