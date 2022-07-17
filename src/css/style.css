@@ -86,6 +86,9 @@ body main #game .heroPad {
   height: 32px;
   box-sizing: border-box;
   position: absolute;
+  transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
+  -webkit-animation: 3s ease-in 0s 1 opacit;
+          animation: 3s ease-in 0s 1 opacit;
 }
 body main #game .heroPad#upPad {
   width: 0;
@@ -136,6 +139,7 @@ body main #game .monsterPad {
   height: 32px;
   box-sizing: border-box;
   position: absolute;
+  transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
 }
 body main #game .monsterPad:hover {
   background-color: rgba(175, 0, 0, 0.3);
@@ -159,6 +163,15 @@ body footer #stuckBtn {
   cursor: pointer;
 }
 
+/*@keyframes opacit {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}*/
 /*body {
     main {
         #game {
