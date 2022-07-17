@@ -766,8 +766,8 @@ const moveHeroKey = (event) => {
     if (event.key === " ") {
         neutralAction();
     };
-    let rightHub = document.querySelector('#rightHub');
-    rightHub.innerHTML = ``;
+    /*let rightHub = document.querySelector('#rightHub');
+    rightHub.innerHTML = ``;*/
 };
 
 const initMove = () => {
@@ -780,8 +780,15 @@ const initMove = () => {
     downPad.addEventListener("click", moveDown);
     leftPad.addEventListener("click", moveLeft);
     rightPad.addEventListener("click", moveRight);
-    heroPad.addEventListener("click", neutralAction);
+    /*heroPad.addEventListener("click", neutralAction);*/
     document.addEventListener("keyup", moveHeroKey);
+    //pass turn on rightclick
+    heroPad.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        neutralAction();
+        console.log('Bloqué petit menu !');
+        return false;
+    }, false);
 };
 
 // move up
