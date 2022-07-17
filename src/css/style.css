@@ -2,10 +2,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow&family=Road+Rage&display=swap");
 body {
   color: white;
-  background-color: rgb(50, 50, 50);
+  /*background-color: rgb(50, 50, 50);*/
+  background-color: black;
 }
 body header h1 {
   text-align: center;
+  margin: 5px auto;
+  padding: 5px 5px;
+  border: 1px solid yellow;
+  width: 75px;
+  border-radius: 15px;
+  font-size: 16px;
 }
 body header nav {
   display: flex;
@@ -137,9 +144,19 @@ body main #game .row .col.room {
   background-size: contain;
   background-repeat: no-repeat;
 }
-body main #game .row .col.room:hover {
-  background-color: rgb(0, 65, 135);
-  filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
+body main #game .row .col.room:hover:after {
+  content: attr(id);
+  color: red;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-size: 10px;
+  background-color: black;
+  box-sizing: border-box;
+  border: 1px solid yellow;
+  border-radius: 5px;
+  padding: 3px 3px;
+  width: 36px;
 }
 body main #game .row .col.corridor {
   border: 1px solid rgb(60, 60, 60);
@@ -149,9 +166,19 @@ body main #game .row .col.corridor {
   background-size: contain;
   background-repeat: no-repeat;
 }
-body main #game .row .col.corridor:hover {
-  background-color: rgb(0, 65, 135);
-  filter: drop-shadow(0px 0px 10px rgb(0, 65, 135));
+body main #game .row .col.corridor:hover:after {
+  content: attr(id);
+  color: red;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-size: 10px;
+  background-color: black;
+  box-sizing: border-box;
+  border: 1px solid yellow;
+  border-radius: 5px;
+  padding: 3px 3px;
+  width: 36px;
 }
 body main #game .row .col.stairs {
   background-image: url("../img/stairs1.png");
@@ -169,10 +196,11 @@ body main #game .row .col.wall {
 }
 body main #game .row .col.brasero {
   background-image: url("../img/brasero.png");
-  background-color: rgb(128, 128, 128);
+  background-color: rgb(145, 140, 140);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  filter: drop-shadow(0px 0px 25px rgba(0, 221, 255, 0.3));
 }
 body main #game .heroPad {
   width: 32px;
@@ -187,28 +215,30 @@ body main #game .heroPad#upPad {
   height: 0;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-bottom: 32px solid rgba(255, 255, 0, 0.3);
+  border-bottom: 24px solid rgba(255, 255, 0, 0.3);
 }
 body main #game .heroPad#downPad {
   width: 0;
   height: 0;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-top: 32px solid rgba(255, 255, 0, 0.3);
+  border-top: 24px solid rgba(255, 255, 0, 0.3);
+  transform: translateY(8px);
 }
 body main #game .heroPad#leftPad {
   width: 0;
   height: 0;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
-  border-right: 32px solid rgba(255, 255, 0, 0.3);
+  border-right: 24px solid rgba(255, 255, 0, 0.3);
 }
 body main #game .heroPad#rightPad {
   width: 0;
   height: 0;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
-  border-left: 32px solid rgba(255, 255, 0, 0.3);
+  border-left: 24px solid rgba(255, 255, 0, 0.3);
+  transform: translateX(8px);
 }
 body main #game .heroPad:hover {
   filter: drop-shadow(0px 0px 10px rgb(255, 255, 0));
@@ -257,7 +287,7 @@ body footer #stuckBtn {
   height: 30px;
   line-height: 30px;
   margin: 5px auto;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 10px 5px 5px rgba(255, 255, 0, 0.3);
   cursor: pointer;
 }
 

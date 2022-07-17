@@ -705,7 +705,6 @@ const padMonster = (iM, r, c, m) => {
     addImg.src = dataMonster.stockMonster[iM].image;
     addPad.idMonster = m;
     addPad.idStock = iM;
-    console.log(addPad.myParam);
     addPad.addEventListener('click', hubMonster);
 };
 
@@ -721,7 +720,7 @@ const hubMonster = (e) => {
     <h1 class='title_cardMonster'>${monster[idM].name}</h1>
     </div>
     <div class='containerImg_cardMonster'><img src='${dataMonster.stockMonster[idS].image}'></div>
-    <p class='position_cardMonster'>last position: r${monster[idM].position.r}c${monster[idM].position.c}</p>
+    <p class='position_cardMonster'>last coordinates: r${monster[idM].position.r}c${monster[idM].position.c}</p>
     <div class='containerStats_cardMonster'>
     <p class='stats_cardMonster'>PV: ${monster[idM].PV}</p>
     <p class='stats_cardMonster'>FOR: ${monster[idM].FOR}</p>
@@ -1017,10 +1016,8 @@ const handlerStuckBtn = () => {
 
 // new game
 const reset = (nF) => {
-    let gameSet = document.querySelector('#game');
     let rightHub = document.querySelector('#rightHub');
     document.removeEventListener('keyup', moveHeroKey);
-    gameSet.innerHTML = ``;
     rightHub.innerHTML = ``;
     posHero.length = 0;
     posStairs.length = 0;
@@ -1042,6 +1039,8 @@ let posHero = [];
 let posStairs = [];
 let floor = 1;
 const appInit = () => {
+    let gameSet = document.querySelector('#game');
+    gameSet.innerHTML = ``;
     gameBoard();
     numberRooms();
     corridorGeneration();
@@ -1245,7 +1244,7 @@ let dataMonster = {
     {
         name: "pizza boy",
         image: "./src/img/monster/pizzaboy.png",
-        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
+        story: "Pineapples... <br>That freaks me out!",
         PV: {
             base: 10,
             markup: 5
