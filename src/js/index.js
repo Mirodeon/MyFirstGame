@@ -584,8 +584,29 @@ const spawnHero = () => {
             r: r + 1,
             c: c + 1
         };
+        //create Hero
+        let iH = Math.floor(Math.random() * dataHero.classHero.length);
+        let basePV = dataHero.classHero[iH].PV.base;
+        let markupPV = dataHero.classHero[iH].PV.markup;
+        let markupPVFloor = markupPV * (floor - 1);
+        let markupPVRand = Math.floor(Math.random() * (markupPV * floor));
+        let baseFOR = dataHero.classHero[iH].FOR.base;
+        let markupFOR = dataHero.classHero[iH].FOR.markup;
+        let markupFORFloor = markupFOR * (floor - 1);
+        let markupFORRand = Math.floor(Math.random() * (markupFOR * floor));
+        let data = {
+            position: {
+                r: r + 1,
+                c: c + 1
+            },
+            name: dataHero.classHero[iH].name,
+            PV: basePV + markupPVFloor + markupPVRand,
+            FOR: baseFOR + markupFORFloor + markupFORRand,
+            life: basePV + markupPVFloor + markupPVRand
+        };
+        dataHero.heroGenerate.push(data);
         posHero.push(pos);
-        padHero();
+        padHero(iH);
         initMove();
     } else {
         spawnHero();
@@ -593,7 +614,7 @@ const spawnHero = () => {
 };
 
 //create pad hero
-const padHero = () => {
+const padHero = (iH) => {
     for (let i = 0; i <= 4; i++) {
         // pad generation
         let gameSet = document.querySelector('#game');
@@ -609,7 +630,9 @@ const padHero = () => {
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
             gameSet.lastChild.append(addImg);
-            addImg.src = './src/img/heroM.png';
+            addImg.src = dataHero.classHero[iH].image;
+            addPad.idC = iH;
+            addPad.addEventListener('click', hubHero)
         };
         if (i == 1) {
             // up pad
@@ -644,6 +667,26 @@ const padHero = () => {
             gameSet.lastChild.style.top = `${posR}px`;
         };
     };
+};
+
+// create hub for hero info when clicked
+const hubHero = (e) => {
+    let idS = e.currentTarget.idC;
+    console.log(`show hub for hero from class ${idS}`);
+    let leftHub = document.querySelector('#leftHub');
+    let hero = dataHero.heroGenerate[0];
+    leftHub.innerHTML = `<article class='cardHero'>
+    <div class='containerTitle_cardHero'>
+    <h1 class='title_cardHero'>${hero.name}</h1>
+    </div>
+    <div class='containerImg_cardHero'><img src='${dataHero.classHero[idS].image}'></div>
+    <p class='position_cardHero'>last coordinates: r${hero.position.r}c${hero.position.c}</p>
+    <div class='containerStats_cardHero'>
+    <p class='stats_cardHero'>PV: ${hero.PV}</p>
+    <p class='stats_cardHero'>FOR: ${hero.FOR}</p>
+    </div>
+    <p class='story_cardHero'>${dataHero.classHero[idS].story}</p>
+    </article>`;
 };
 
 //spawn monsters
@@ -780,7 +823,9 @@ const initMove = () => {
     downPad.addEventListener("click", moveDown);
     leftPad.addEventListener("click", moveLeft);
     rightPad.addEventListener("click", moveRight);
-    /*heroPad.addEventListener("click", neutralAction);*/
+    heroPad.addEventListener("click", () => {
+        console.log(dataHero);
+    });
     document.addEventListener("keyup", moveHeroKey);
     //pass turn on rightclick
     heroPad.addEventListener("contextmenu", (e) => {
@@ -1024,11 +1069,14 @@ const handlerStuckBtn = () => {
 // new game
 const reset = (nF) => {
     let rightHub = document.querySelector('#rightHub');
+    let leftHub = document.querySelector('#leftHub');
     document.removeEventListener('keyup', moveHeroKey);
+    leftHub.innerHTML = ``;
     rightHub.innerHTML = ``;
     posHero.length = 0;
     posStairs.length = 0;
     dataMonster.monsterGenerate.length = 0;
+    dataHero.heroGenerate.length = 0;
     floor = floor + nF;
     appInit();
     console.log(`Welcome to floor ${floor} adventurer!`);
@@ -1038,6 +1086,14 @@ const cleanRightHub = () => {
     let rightHub = document.querySelector('#rightHub');
     rightHub.addEventListener('click', () => {
         rightHub.innerHTML = ``;
+    });
+};
+
+// clean left hub
+const cleanLeftHub = () => {
+    let leftHub = document.querySelector('#leftHub');
+    leftHub.addEventListener('click', () => {
+        leftHub.innerHTML = ``;
     });
 };
 
@@ -1056,6 +1112,7 @@ const appInit = () => {
     spawnStairs();
     checkAvailablePad();
     cleanRightHub();
+    cleanLeftHub();
     console.log(`hero position:`);
     console.log(posHero);
     console.log(`stairs position:`);
@@ -1064,6 +1121,66 @@ const appInit = () => {
     console.log(dataMonster);
 };
 
+// datahero
+let dataHero = {
+    classHero: [{
+        name: "warrior",
+        image: "./src/img/character/darklink.png",
+        story: "Bam!",
+        PV: {
+            base: 10,
+            markup: 10
+        },
+        FOR: {
+            base: 10,
+            markup: 10
+        },
+        skill: ["skill1", "skill2"]
+    },
+    {
+        name: "priest",
+        image: "./src/img/character/holyF.png",
+        story: "Holy shit!",
+        PV: {
+            base: 10,
+            markup: 10
+        },
+        FOR: {
+            base: 10,
+            markup: 10
+        },
+        skill: ["skill1", "skill2"]
+    },
+    {
+        name: "archer",
+        image: "./src/img/character/archerM.png",
+        story: "Paw!",
+        PV: {
+            base: 10,
+            markup: 10
+        },
+        FOR: {
+            base: 10,
+            markup: 10
+        },
+        skill: ["skill1", "skill2"]
+    },
+    {
+        name: "pistolero",
+        image: "./src/img/character/sniperF.png",
+        story: "Piou piou!",
+        PV: {
+            base: 10,
+            markup: 10
+        },
+        FOR: {
+            base: 10,
+            markup: 10
+        },
+        skill: ["skill1", "skill2"]
+    }],
+    heroGenerate: []
+};
 // datamonster
 let dataMonster = {
     stockMonster: [{

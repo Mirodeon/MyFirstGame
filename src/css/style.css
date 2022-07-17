@@ -30,19 +30,85 @@ body main #leftHub {
   position: absolute;
   top: 0px;
   left: 25px;
-  z-index: 1;
+  z-index: 2;
+  cursor: pointer;
 }
-body main #leftHub .cardMonster {
+body main #leftHub .cardHero {
   width: 250px;
   height: 640px;
-  -webkit-animation: 1s ease-in 0s 1 opacit;
-          animation: 1s ease-in 0s 1 opacit;
+  -webkit-animation: 0.5s ease-in 0s 1 opacit;
+          animation: 0.5s ease-in 0s 1 opacit;
+  box-sizing: border-box;
+  border: 1px solid yellow;
+  border-radius: 15px;
+  text-align: center;
+  background-color: black;
+}
+body main #leftHub .cardHero .containerTitle_cardHero {
+  margin: 15px auto;
+  width: 230px;
+  height: 100px;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+}
+body main #leftHub .cardHero .containerTitle_cardHero .title_cardHero {
+  margin: 0 auto;
+  font-size: 32px;
+}
+body main #leftHub .cardHero .containerImg_cardHero {
+  width: 230px;
+  height: 230px;
+  border: 1px solid red;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 15px;
+  display: flex;
+  align-items: flex-end;
+}
+body main #leftHub .cardHero .containerImg_cardHero img {
+  display: block;
+  max-width: 210px;
+  max-height: 210px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+body main #leftHub .cardHero .position_cardHero {
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 230px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 15px auto;
+  border-radius: 15px;
+  padding: 10px 0px;
+}
+body main #leftHub .cardHero .containerStats_cardHero {
+  box-sizing: border-box;
+  width: 230px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 0px auto;
+  border-radius: 15px;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+}
+body main #leftHub .cardHero .story_cardHero {
+  box-sizing: border-box;
+  width: 230px;
+  height: 146px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 15px auto;
+  border-radius: 15px;
+  padding: 10px 10px;
+  text-align: left;
+  font-size: 16px;
 }
 body main #rightHub {
   position: absolute;
   top: 0px;
   right: 25px;
-  z-index: 1;
+  z-index: 2;
   cursor: pointer;
 }
 body main #rightHub .cardMonster {
@@ -248,6 +314,7 @@ body main #game .heroPad#entityHero {
   background-color: initial;
   display: flex;
   align-items: flex-end;
+  z-index: 1;
 }
 body main #game .heroPad#entityHero:hover {
   background-color: rgba(0, 190, 0, 0.3);
