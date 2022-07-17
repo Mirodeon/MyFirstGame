@@ -20,12 +20,114 @@ body {
     }
 
     main {
-        width: 1024px;
+        width: 100%;
         margin: 0px auto;
-        background-color: black;
+        position: relative;
+
+        #leftHub {
+            position: absolute;
+            top: 0px;
+            left: 25px;
+            z-index: 1;
+
+            .cardMonster {
+                width: 250px;
+                height: 640px;
+                animation: 1s ease-in 0s 1 opacit;
+            }
+        }
+
+        #rightHub {
+            position: absolute;
+            top: 0px;
+            right: 25px;
+            z-index: 1;
+            cursor: pointer;
+
+            .cardMonster {
+                width: 250px;
+                height: 640px;
+                animation: 0.5s ease-in 0s 1 opacit;
+                box-sizing: border-box;
+                border: 1px solid yellow;
+                border-radius: 15px;
+                text-align: center;
+                background-color: black;
+
+                .containerTitle_cardMonster {
+                    margin: 15px auto;
+                    width: 230px;
+                    height: 100px;
+                    box-sizing: border-box;
+                    align-items: center;
+                    display: flex;
+                    .title_cardMonster {
+                        margin: 0 auto;
+                        font-size: 32px;
+                    }
+                }
+
+                .containerImg_cardMonster {
+                    width: 230px;
+                    height: 230px;
+                    border: 1px solid red;
+                    box-sizing: border-box;
+                    margin: 0 auto;
+                    border-radius: 15px;
+                    display: flex;
+                    align-items: flex-end;
+
+                    img {
+                        display: block;
+                        max-width: 210px;
+                        max-height: 210px;
+                        margin: 10px auto;
+                        border-radius: 15px;
+                    }
+                }
+
+                .position_cardMonster {
+                    font-size: 14px;
+                    box-sizing: border-box;
+                    width: 230px;
+                    border: 1px solid rgb(60, 60, 60);
+                    margin: 15px auto;
+                    border-radius: 15px;
+                    padding: 10px 0px;
+                }
+
+                .containerStats_cardMonster {
+                    box-sizing: border-box;
+                    width: 230px;
+                    border: 1px solid rgb(60, 60, 60);
+                    margin: 0px auto;
+                    border-radius: 15px;
+                    padding: 10px 0px;
+                    display: flex;
+                    justify-content: space-around;
+                    font-size: 16px;
+                }
+
+                .story_cardMonster {
+                    box-sizing: border-box;
+                    width: 230px;
+                    height: 146px;
+                    border: 1px solid rgb(60, 60, 60);
+                    margin: 15px auto;
+                    border-radius: 15px;
+                    padding: 10px 10px;
+                    text-align: left;
+                    font-size: 16px;
+                }
+            }
+        }
 
         #game {
+            width: 1024px;
+            margin: 0px auto;
+            background-color: black;
             position: relative;
+            height: 640px;
 
             .row {
                 display: flex;
@@ -34,7 +136,6 @@ body {
                     width: 32px;
                     height: 32px;
                     box-sizing: border-box;
-                    /*border: 1px solid rgb(60, 60, 60);*/
                     background: black;
 
                     &.room {
@@ -104,7 +205,7 @@ body {
                 box-sizing: border-box;
                 position: absolute;
                 transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
-                animation: 3s ease-in 0s 1 opacit;
+                /*animation: 3s ease-in 0s 1 opacit;*/
 
                 &#upPad {
                     width: 0;
@@ -145,6 +246,8 @@ body {
 
                 &#entityHero {
                     background-color: initial;
+                    display: flex;
+                    align-items: flex-end;
 
                     &:hover {
                         background-color: rgba(0, 190, 0, 0.3);
@@ -153,8 +256,9 @@ body {
 
                     img {
                         display: block;
-                        height: 100%;
-                        width: 100%;
+                        width: 32px;
+                        margin: 0 auto;
+                        box-sizing: border-box;
                     }
                 }
             }
@@ -165,6 +269,8 @@ body {
                 box-sizing: border-box;
                 position: absolute;
                 transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
+                display: flex;
+                align-items: flex-end;
 
                 &:hover {
                     background-color: rgb(175, 0, 0, 0.3);
@@ -174,8 +280,9 @@ body {
 
                 img {
                     display: block;
-                    height: 100%;
-                    width: 100%;
+                    width: 32px;
+                    margin: 0 auto;
+                    box-sizing: border-box;
                 }
             }
         }
@@ -196,7 +303,7 @@ body {
     }
 }
 
-/*@keyframes opacit {
+@keyframes opacit {
     from {
         opacity: 0;
     }
@@ -204,7 +311,7 @@ body {
     to {
         opacity: 1;
     }
-}*/
+}
 
 // mise en evidence de path corridor
 /*body {

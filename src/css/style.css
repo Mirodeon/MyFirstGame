@@ -15,12 +15,106 @@ body header nav {
   text-align: center;
 }
 body main {
+  width: 100%;
+  margin: 0px auto;
+  position: relative;
+}
+body main #leftHub {
+  position: absolute;
+  top: 0px;
+  left: 25px;
+  z-index: 1;
+}
+body main #leftHub .cardMonster {
+  width: 250px;
+  height: 640px;
+  -webkit-animation: 1s ease-in 0s 1 opacit;
+          animation: 1s ease-in 0s 1 opacit;
+}
+body main #rightHub {
+  position: absolute;
+  top: 0px;
+  right: 25px;
+  z-index: 1;
+  cursor: pointer;
+}
+body main #rightHub .cardMonster {
+  width: 250px;
+  height: 640px;
+  -webkit-animation: 0.5s ease-in 0s 1 opacit;
+          animation: 0.5s ease-in 0s 1 opacit;
+  box-sizing: border-box;
+  border: 1px solid yellow;
+  border-radius: 15px;
+  text-align: center;
+  background-color: black;
+}
+body main #rightHub .cardMonster .containerTitle_cardMonster {
+  margin: 15px auto;
+  width: 230px;
+  height: 100px;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+}
+body main #rightHub .cardMonster .containerTitle_cardMonster .title_cardMonster {
+  margin: 0 auto;
+  font-size: 32px;
+}
+body main #rightHub .cardMonster .containerImg_cardMonster {
+  width: 230px;
+  height: 230px;
+  border: 1px solid red;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 15px;
+  display: flex;
+  align-items: flex-end;
+}
+body main #rightHub .cardMonster .containerImg_cardMonster img {
+  display: block;
+  max-width: 210px;
+  max-height: 210px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+body main #rightHub .cardMonster .position_cardMonster {
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 230px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 15px auto;
+  border-radius: 15px;
+  padding: 10px 0px;
+}
+body main #rightHub .cardMonster .containerStats_cardMonster {
+  box-sizing: border-box;
+  width: 230px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 0px auto;
+  border-radius: 15px;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+}
+body main #rightHub .cardMonster .story_cardMonster {
+  box-sizing: border-box;
+  width: 230px;
+  height: 146px;
+  border: 1px solid rgb(60, 60, 60);
+  margin: 15px auto;
+  border-radius: 15px;
+  padding: 10px 10px;
+  text-align: left;
+  font-size: 16px;
+}
+body main #game {
   width: 1024px;
   margin: 0px auto;
   background-color: black;
-}
-body main #game {
   position: relative;
+  height: 640px;
 }
 body main #game .row {
   display: flex;
@@ -29,7 +123,6 @@ body main #game .row .col {
   width: 32px;
   height: 32px;
   box-sizing: border-box;
-  /*border: 1px solid rgb(60, 60, 60);*/
   background: black;
   /*&.monster {
   }*/
@@ -87,8 +180,7 @@ body main #game .heroPad {
   box-sizing: border-box;
   position: absolute;
   transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
-  -webkit-animation: 3s ease-in 0s 1 opacit;
-          animation: 3s ease-in 0s 1 opacit;
+  /*animation: 3s ease-in 0s 1 opacit;*/
 }
 body main #game .heroPad#upPad {
   width: 0;
@@ -124,6 +216,8 @@ body main #game .heroPad:hover {
 }
 body main #game .heroPad#entityHero {
   background-color: initial;
+  display: flex;
+  align-items: flex-end;
 }
 body main #game .heroPad#entityHero:hover {
   background-color: rgba(0, 190, 0, 0.3);
@@ -131,8 +225,9 @@ body main #game .heroPad#entityHero:hover {
 }
 body main #game .heroPad#entityHero img {
   display: block;
-  height: 100%;
-  width: 100%;
+  width: 32px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 body main #game .monsterPad {
   width: 32px;
@@ -140,6 +235,8 @@ body main #game .monsterPad {
   box-sizing: border-box;
   position: absolute;
   transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
+  display: flex;
+  align-items: flex-end;
 }
 body main #game .monsterPad:hover {
   background-color: rgba(175, 0, 0, 0.3);
@@ -148,8 +245,9 @@ body main #game .monsterPad:hover {
 }
 body main #game .monsterPad img {
   display: block;
-  height: 100%;
-  width: 100%;
+  width: 32px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 body footer #stuckBtn {
   text-align: center;
@@ -163,15 +261,23 @@ body footer #stuckBtn {
   cursor: pointer;
 }
 
-/*@keyframes opacit {
-    from {
-        opacity: 0;
-    }
+@-webkit-keyframes opacit {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
-    to {
-        opacity: 1;
-    }
-}*/
+@keyframes opacit {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /*body {
     main {
         #game {

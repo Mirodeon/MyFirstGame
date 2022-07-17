@@ -653,7 +653,7 @@ const spawnMonster = (nM) => {
         let c = Math.floor(Math.random() * 32);
         let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
         if ((positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`)) &&
-            !positionSpawn.classList.contains(`perso`)) {
+            !positionSpawn.classList.contains(`perso`) && !positionSpawn.classList.contains(`monster`)) {
             positionSpawn.classList.add(`monster`);
             console.log(`spawn monster${m + 1} r:${r + 1} c:${c + 1}`);
             createMonster(r, c, m);
@@ -682,7 +682,8 @@ const createMonster = (r, c, m) => {
         },
         name: dataMonster.stockMonster[iM].name,
         PV: basePV + markupPVFloor + markupPVRand,
-        FOR: baseFOR + markupFORFloor + markupFORRand
+        FOR: baseFOR + markupFORFloor + markupFORRand,
+        life: basePV + markupPVFloor + markupPVRand
     };
     dataMonster.monsterGenerate.push(data);
     padMonster(iM, r, c, m);
@@ -702,6 +703,31 @@ const padMonster = (iM, r, c, m) => {
     gameSet.lastChild.style.top = `${posR}px`;
     gameSet.lastChild.append(addImg);
     addImg.src = dataMonster.stockMonster[iM].image;
+    addPad.idMonster = m;
+    addPad.idStock = iM;
+    console.log(addPad.myParam);
+    addPad.addEventListener('click', hubMonster);
+};
+
+// create hub for monster info when clicked
+const hubMonster = (e) => {
+    let idM = e.currentTarget.idMonster;
+    let idS = e.currentTarget.idStock;
+    console.log(`show hub for monster ${idM} from stock ${idS}`);
+    let rightHub = document.querySelector('#rightHub');
+    let monster = dataMonster.monsterGenerate;
+    rightHub.innerHTML = `<article class='cardMonster'>
+    <div class='containerTitle_cardMonster'>
+    <h1 class='title_cardMonster'>${monster[idM].name}</h1>
+    </div>
+    <div class='containerImg_cardMonster'><img src='${dataMonster.stockMonster[idS].image}'></div>
+    <p class='position_cardMonster'>last position: r${monster[idM].position.r}c${monster[idM].position.c}</p>
+    <div class='containerStats_cardMonster'>
+    <p class='stats_cardMonster'>PV: ${monster[idM].PV}</p>
+    <p class='stats_cardMonster'>FOR: ${monster[idM].FOR}</p>
+    </div>
+    <p class='story_cardMonster'>${dataMonster.stockMonster[idS].story}</p>
+    </article>`;
 };
 
 // spawn stairs
@@ -709,9 +735,9 @@ const spawnStairs = () => {
     let r = Math.floor(Math.random() * 20);
     let c = Math.floor(Math.random() * 32);
     let positionSpawn = document.querySelector(`#r${r + 1}c${c + 1}`);
-    if (/*(positionSpawn.classList.contains(`room`) || positionSpawn.classList.contains(`corridor`))*/
-        positionSpawn.classList.contains(`room`) &&
-        !positionSpawn.classList.contains(`perso`) && !positionSpawn.classList.contains(`monster`)) {
+    if (positionSpawn.classList.contains(`room`) &&
+        !positionSpawn.classList.contains(`perso`) &&
+        !positionSpawn.classList.contains(`monster`)) {
         positionSpawn.classList.add('stairs');
         console.log(`spawn stairs at r:${r + 1} c:${c + 1}`);
         let pos = {
@@ -741,6 +767,8 @@ const moveHeroKey = (event) => {
     if (event.key === " ") {
         neutralAction();
     };
+    let rightHub = document.querySelector('#rightHub');
+    rightHub.innerHTML = ``;
 };
 
 const initMove = () => {
@@ -990,14 +1018,23 @@ const handlerStuckBtn = () => {
 // new game
 const reset = (nF) => {
     let gameSet = document.querySelector('#game');
+    let rightHub = document.querySelector('#rightHub');
     document.removeEventListener('keyup', moveHeroKey);
     gameSet.innerHTML = ``;
+    rightHub.innerHTML = ``;
     posHero.length = 0;
     posStairs.length = 0;
     dataMonster.monsterGenerate.length = 0;
     floor = floor + nF;
     appInit();
     console.log(`Welcome to floor ${floor} adventurer!`);
+};
+// clean right hub
+const cleanRightHub = () => {
+    let rightHub = document.querySelector('#rightHub');
+    rightHub.addEventListener('click', () => {
+        rightHub.innerHTML = ``;
+    });
 };
 
 // appInit
@@ -1012,6 +1049,7 @@ const appInit = () => {
     cornerWall();
     spawnStairs();
     checkAvailablePad();
+    cleanRightHub();
     console.log(`hero position:`);
     console.log(posHero);
     console.log(`stairs position:`);
@@ -1025,6 +1063,7 @@ let dataMonster = {
     stockMonster: [{
         name: "devil",
         image: "./src/img/monster/devil.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 15
@@ -1037,6 +1076,7 @@ let dataMonster = {
     {
         name: "runic dragon",
         image: "./src/img/monster/drake1.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 10
@@ -1049,6 +1089,7 @@ let dataMonster = {
     {
         name: "infernal dragon",
         image: "./src/img/monster/drake2.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 40,
             markup: 15
@@ -1061,6 +1102,7 @@ let dataMonster = {
     {
         name: "abyssal dragon",
         image: "./src/img/monster/drake3.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 15
@@ -1073,6 +1115,7 @@ let dataMonster = {
     {
         name: "haunted snail",
         image: "./src/img/monster/evilspirit.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 5
@@ -1085,6 +1128,7 @@ let dataMonster = {
     {
         name: "corrupted sylvan",
         image: "./src/img/monster/evilthree.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 30,
             markup: 5
@@ -1097,6 +1141,7 @@ let dataMonster = {
     {
         name: "lucky pig",
         image: "./src/img/monster/flypig.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 5
@@ -1109,6 +1154,7 @@ let dataMonster = {
     {
         name: "melancholic ghost",
         image: "./src/img/monster/ghost1.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 5
@@ -1121,6 +1167,7 @@ let dataMonster = {
     {
         name: "evil spirit",
         image: "./src/img/monster/ghost2.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 5
@@ -1133,6 +1180,7 @@ let dataMonster = {
     {
         name: "gobelin",
         image: "./src/img/monster/gobelin.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 5
@@ -1145,6 +1193,7 @@ let dataMonster = {
     {
         name: "goblin shaman",
         image: "./src/img/monster/gobelinchaman.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 15,
             markup: 5
@@ -1157,6 +1206,7 @@ let dataMonster = {
     {
         name: "aerial jellyfish",
         image: "./src/img/monster/jellyfish.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 35,
             markup: 5
@@ -1169,6 +1219,7 @@ let dataMonster = {
     {
         name: "kobold",
         image: "./src/img/monster/kobold.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 20,
             markup: 5
@@ -1181,6 +1232,7 @@ let dataMonster = {
     {
         name: "embodiment of evil and depravity",
         image: "./src/img/monster/littledemon.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 35,
             markup: 10
@@ -1193,6 +1245,7 @@ let dataMonster = {
     {
         name: "pizza boy",
         image: "./src/img/monster/pizzaboy.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 5
@@ -1205,6 +1258,7 @@ let dataMonster = {
     {
         name: "prankster cat",
         image: "./src/img/monster/prankster_cat.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 5
@@ -1217,6 +1271,7 @@ let dataMonster = {
     {
         name: "quetzacoalt",
         image: "./src/img/monster/quetzacoalt.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 20,
             markup: 5
@@ -1229,6 +1284,7 @@ let dataMonster = {
     {
         name: "traveler face",
         image: "./src/img/monster/skull.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 15,
             markup: 5
@@ -1241,6 +1297,7 @@ let dataMonster = {
     {
         name: "slenderman",
         image: "./src/img/monster/slender.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 30,
             markup: 10
@@ -1253,6 +1310,7 @@ let dataMonster = {
     {
         name: "slime",
         image: "./src/img/monster/slime.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 8
@@ -1265,6 +1323,7 @@ let dataMonster = {
     {
         name: "spectator",
         image: "./src/img/monster/spectator.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 10,
             markup: 3
@@ -1277,6 +1336,7 @@ let dataMonster = {
     {
         name: "spider golem",
         image: "./src/img/monster/spidergolem.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 5
@@ -1289,6 +1349,7 @@ let dataMonster = {
     {
         name: "wild unicorn",
         image: "./src/img/monster/unicorn1.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 7
@@ -1301,6 +1362,7 @@ let dataMonster = {
     {
         name: "awake unicorn",
         image: "./src/img/monster/unicorn2.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 30,
             markup: 8
@@ -1313,6 +1375,7 @@ let dataMonster = {
     {
         name: "inhabitant of the void",
         image: "./src/img/monster/velkozz.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 20,
             markup: 6
@@ -1325,6 +1388,7 @@ let dataMonster = {
     {
         name: "red wyvern",
         image: "./src/img/monster/wyvern.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 25,
             markup: 8
@@ -1337,6 +1401,7 @@ let dataMonster = {
     {
         name: "zombie",
         image: "./src/img/monster/zombie.png",
+        story: "This monster has an absolutely fabulous and fascinating story but only the dev knows it.",
         PV: {
             base: 20,
             markup: 5
