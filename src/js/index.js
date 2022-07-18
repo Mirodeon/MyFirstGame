@@ -757,6 +757,13 @@ const padMonster = (iM, r, c, m) => {
         console.log(`Bloqué petit menu !`);
         return false;
     }, false);
+    let addContainerLife = document.createElement('div');
+    gameSet.lastChild.append(addContainerLife);
+    addContainerLife.classList.add('containerLife');
+    let lifeBar = document.createElement('div');
+    addContainerLife.append(lifeBar);
+    lifeBar.classList.add('barLife');
+    lifeBar.setAttribute("id", `lifeBarMonster${m}`);
 };
 
 // normal attack
@@ -774,6 +781,7 @@ const normalAttack = (idM) => {
         monster.life = monster.life - hero.FOR;
         console.log(`Hero ${hero.name} attacks monster${idM}: ${monster.name} with ${hero.FOR}FOR.`);
         console.log(`${monster.life}/${monster.PV}`);
+        console.log(`${(monster.life / monster.PV) * 100}%`);
         if (monster.life <= 0) {
             placeMonster.classList.remove('monster');
             monsterEntity.remove();
@@ -798,6 +806,7 @@ const hubMonster = (e) => {
     <div class='containerImg_cardMonster'><img src='${dataMonster.stockMonster[idS].image}'></div>
     <p class='position_cardMonster'>last coordinates: r${monster[idM].position.r}c${monster[idM].position.c}</p>
     <div class='containerStats_cardMonster'>
+    <p class='stats_cardMonster'>${monster[idM].life}/${monster[idM].PV}</p>
     <p class='stats_cardMonster'>PV: ${monster[idM].PV}</p>
     <p class='stats_cardMonster'>FOR: ${monster[idM].FOR}</p>
     </div>
@@ -883,6 +892,7 @@ const moveUp = () => {
         checkAvailablePad();
     };
 };
+
 // move down
 const moveDown = () => {
     let posHero = dataHero.heroGenerate[0].position;
@@ -995,8 +1005,12 @@ const moveMonster = () => {
         let lPos = document.querySelector(`#r${posM.r}c${posM.c - 1}`);
         let monsterPad = document.querySelector(`#monster${i}`);
         // up move
-        if (monster[i].life <= 1) {
+        if (monster[i].life < 1) {
             randomMove = -1;
+        };
+        if (monster[i].life > 0) {
+            let lifeBar = document.querySelector(`#lifeBarMonster${i}`);
+            lifeBar.style.width = `${(monster[i].life / monster[i].PV) * 100}%`;
         };
         if (randomMove == 0 &&
             !uPos.classList.contains('wall') &&
@@ -1169,8 +1183,8 @@ let dataHero = {
         image: "./src/img/character/darklink.png",
         story: "Bam!",
         PV: {
-            base: 10,
-            markup: 10
+            base: 100,
+            markup: 15
         },
         FOR: {
             base: 10,
@@ -1183,8 +1197,8 @@ let dataHero = {
         image: "./src/img/character/holyF.png",
         story: "Holy shit!",
         PV: {
-            base: 10,
-            markup: 10
+            base: 100,
+            markup: 15
         },
         FOR: {
             base: 10,
@@ -1197,8 +1211,8 @@ let dataHero = {
         image: "./src/img/character/archerM.png",
         story: "Paw!",
         PV: {
-            base: 10,
-            markup: 10
+            base: 100,
+            markup: 15
         },
         FOR: {
             base: 10,
@@ -1211,8 +1225,8 @@ let dataHero = {
         image: "./src/img/character/sniperF.png",
         story: "Piou piou!",
         PV: {
-            base: 10,
-            markup: 10
+            base: 100,
+            markup: 15
         },
         FOR: {
             base: 10,
