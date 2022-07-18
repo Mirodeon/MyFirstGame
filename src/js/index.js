@@ -633,7 +633,14 @@ const padHero = (iH) => {
             gameSet.lastChild.append(addImg);
             addImg.src = dataHero.classHero[iH].image;
             addPad.idC = iH;
-            addPad.addEventListener('click', hubHero)
+            addPad.addEventListener('click', hubHero);
+            let addContainerLife = document.createElement('div');
+            gameSet.lastChild.append(addContainerLife);
+            addContainerLife.classList.add('containerLife');
+            let lifeBar = document.createElement('div');
+            addContainerLife.append(lifeBar);
+            lifeBar.classList.add('barLife');
+            lifeBar.setAttribute("id", `lifeBarHero`);
         };
         if (i == 1) {
             // up pad
@@ -676,18 +683,26 @@ const hubHero = (e) => {
     console.log(`show hub for hero from class ${idC}`);
     let leftHub = document.querySelector('#leftHub');
     let hero = dataHero.heroGenerate[0];
-    leftHub.innerHTML = `<article class='cardHero'>
+    leftHub.innerHTML = `<article class='cardHero' id='cardHero'>
     <div class='containerTitle_cardHero'>
     <h1 class='title_cardHero'>${hero.name}</h1>
     </div>
-    <div class='containerImg_cardHero'><img src='${dataHero.classHero[idC].image}'></div>
-    <p class='position_cardHero'>last coordinates: r${hero.position.r}c${hero.position.c}</p>
+    <div class='containerImg_cardHero'>
+    <img src='${dataHero.classHero[idC].image}'>
+    <div class='containerLife_cardHero'>
+    <div class='lifeBar_cardHero'></div>
+    <div class='numericLife_cardHero'>${hero.life}/${hero.PV}</div>
+    </div>
+    </div>
+    <p class='position_cardHero'>Location: r${hero.position.r}c${hero.position.c}</p>
     <div class='containerStats_cardHero'>
     <p class='stats_cardHero'>PV: ${hero.PV}</p>
     <p class='stats_cardHero'>FOR: ${hero.FOR}</p>
     </div>
     <p class='story_cardHero'>${dataHero.classHero[idC].story}</p>
     </article>`;
+    let lifeBar = document.querySelector('.lifeBar_cardHero');
+    lifeBar.style.width = `${(hero.life / hero.PV) * 100}%`;
 };
 
 //spawn monsters
@@ -754,7 +769,6 @@ const padMonster = (iM, r, c, m) => {
         e.preventDefault();
         let idM = e.currentTarget.idMonster;
         normalAttack(idM);
-        console.log(`Bloqué petit menu !`);
         return false;
     }, false);
     let addContainerLife = document.createElement('div');
@@ -789,6 +803,8 @@ const normalAttack = (idM) => {
         };
         moveMonster();
         checkAvailablePad();
+        actualizationBarLifeHero();
+        actualizationBarLifeMonster();
     };
 };
 
@@ -799,19 +815,26 @@ const hubMonster = (e) => {
     console.log(`show hub for monster ${idM} from stock ${idS}`);
     let rightHub = document.querySelector('#rightHub');
     let monster = dataMonster.monsterGenerate;
-    rightHub.innerHTML = `<article class='cardMonster'>
+    rightHub.innerHTML = `<article class='cardMonster' id='cardMonster${idM}'>
     <div class='containerTitle_cardMonster'>
     <h1 class='title_cardMonster'>${monster[idM].name}</h1>
     </div>
-    <div class='containerImg_cardMonster'><img src='${dataMonster.stockMonster[idS].image}'></div>
-    <p class='position_cardMonster'>last coordinates: r${monster[idM].position.r}c${monster[idM].position.c}</p>
+    <div class='containerImg_cardMonster'>
+    <img src='${dataMonster.stockMonster[idS].image}'>
+    <div class='containerLife_cardMonster'>
+    <div class='lifeBar_cardMonster'></div>
+    <div class='numericLife_cardMonster'>${monster[idM].life}/${monster[idM].PV}</div>
+    </div>
+    </div>
+    <p class='position_cardMonster'>Location: r${monster[idM].position.r}c${monster[idM].position.c}</p>
     <div class='containerStats_cardMonster'>
-    <p class='stats_cardMonster'>${monster[idM].life}/${monster[idM].PV}</p>
     <p class='stats_cardMonster'>PV: ${monster[idM].PV}</p>
     <p class='stats_cardMonster'>FOR: ${monster[idM].FOR}</p>
     </div>
     <p class='story_cardMonster'>${dataMonster.stockMonster[idS].story}</p>
     </article>`;
+    let lifeBar = document.querySelector('.lifeBar_cardMonster');
+    lifeBar.style.width = `${(monster[idM].life / monster[idM].PV) * 100}%`;
 };
 
 // spawn stairs
@@ -873,7 +896,6 @@ const initMove = () => {
     heroPad.addEventListener("contextmenu", (e) => {
         e.preventDefault();
         neutralAction();
-        console.log('Bloqué petit menu !');
         return false;
     }, false);
 };
@@ -890,6 +912,8 @@ const moveUp = () => {
         padMove();
         moveMonster();
         checkAvailablePad();
+        actualizationBarLifeHero();
+        actualizationBarLifeMonster();
     };
 };
 
@@ -905,6 +929,8 @@ const moveDown = () => {
         padMove();
         moveMonster();
         checkAvailablePad();
+        actualizationBarLifeHero();
+        actualizationBarLifeMonster();
     };
 };
 // move left
@@ -919,6 +945,8 @@ const moveLeft = () => {
         padMove();
         moveMonster();
         checkAvailablePad();
+        actualizationBarLifeHero();
+        actualizationBarLifeMonster();
     };
 };
 //move right
@@ -933,6 +961,8 @@ const moveRight = () => {
         padMove();
         moveMonster();
         checkAvailablePad();
+        actualizationBarLifeHero();
+        actualizationBarLifeMonster();
     };
 };
 
@@ -947,6 +977,8 @@ const neutralAction = () => {
         moveMonster();
     };
     checkAvailablePad();
+    actualizationBarLifeHero();
+    actualizationBarLifeMonster();
 };
 
 // move pad
@@ -1007,10 +1039,6 @@ const moveMonster = () => {
         // up move
         if (monster[i].life < 1) {
             randomMove = -1;
-        };
-        if (monster[i].life > 0) {
-            let lifeBar = document.querySelector(`#lifeBarMonster${i}`);
-            lifeBar.style.width = `${(monster[i].life / monster[i].PV) * 100}%`;
         };
         if (randomMove == 0 &&
             !uPos.classList.contains('wall') &&
@@ -1105,6 +1133,52 @@ const checkAvailablePad = () => {
         rightPad.style.visibility = "hidden";
     } else {
         rightPad.style.visibility = "visible";
+    };
+};
+
+// bar life hero actualization
+const actualizationBarLifeHero = () => {
+    let lifeBar = document.querySelector(`#lifeBarHero`);
+    let hero = dataHero.heroGenerate[0];
+    lifeBar.style.width = `${(hero.life / hero.PV) * 100}%`;
+    if (!!document.getElementById('cardHero')) {
+        let lifeBar = document.querySelector('.lifeBar_cardHero');
+        let numericLifeBar = document.querySelector('.numericLife_cardHero');
+        let position = document.querySelector('.position_cardHero');
+        if (hero.life > 0) {
+            lifeBar.style.width = `${(hero.life / hero.PV) * 100}%`;
+            numericLifeBar.textContent = `${hero.life}/${hero.PV}`;
+            position.textContent = `Location: r${hero.position.r}c${hero.position.c}`;
+        } else {
+            lifeBar.style.width = `0%`;
+            numericLifeBar.textContent = `0/${hero.PV}`;
+            position.textContent = `Location: heaven`;
+        };
+    };
+};
+
+const actualizationBarLifeMonster = () => {
+    let monster = dataMonster.monsterGenerate;
+    for (let i = 0; i < monster.length; i++) {
+        if (monster[i].life > 0) {
+            let lifeBar = document.querySelector(`#lifeBarMonster${i}`);
+            lifeBar.style.width = `${(monster[i].life / monster[i].PV) * 100}%`;
+        };
+        if (!!document.getElementById(`cardMonster${i}`)) {
+            let lifeBar = document.querySelector('.lifeBar_cardMonster');
+            let numericLifeBar = document.querySelector('.numericLife_cardMonster');
+            let position = document.querySelector('.position_cardMonster');
+            if (monster[i].life > 0) {
+                lifeBar.style.width = `${(monster[i].life / monster[i].PV) * 100}%`;
+                numericLifeBar.textContent = `${monster[i].life}/${monster[i].PV}`;
+                position.textContent = `Location: r${monster[i].position.r}c${monster[i].position.c}`;
+            } else {
+                lifeBar.style.width = `0%`;
+                numericLifeBar.textContent = `0/${monster[i].PV}`;
+                position.textContent = `Location: heaven`;
+            };
+
+        };
     };
 };
 
