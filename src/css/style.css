@@ -334,6 +334,7 @@ body main #game .monsterPad {
   transition: left 0.3s ease-in 0s, top 0.3s ease-in 0s;
   display: flex;
   align-items: flex-end;
+  z-index: 1;
 }
 body main #game .monsterPad:hover {
   background-color: rgba(175, 0, 0, 0.3);

@@ -580,32 +580,9 @@ const spawnHero = () => {
     if (positionSpawn.classList.contains(`room`)) {
         positionSpawn.classList.add(`perso`);
         console.log(`spawn hero r:${r + 1} c:${c + 1}`);
-        let pos = {
-            r: r + 1,
-            c: c + 1
-        };
         //create Hero
         let iH = Math.floor(Math.random() * dataHero.classHero.length);
-        let basePV = dataHero.classHero[iH].PV.base;
-        let markupPV = dataHero.classHero[iH].PV.markup;
-        let markupPVFloor = markupPV * (floor - 1);
-        let markupPVRand = Math.floor(Math.random() * (markupPV * floor));
-        let baseFOR = dataHero.classHero[iH].FOR.base;
-        let markupFOR = dataHero.classHero[iH].FOR.markup;
-        let markupFORFloor = markupFOR * (floor - 1);
-        let markupFORRand = Math.floor(Math.random() * (markupFOR * floor));
-        let data = {
-            position: {
-                r: r + 1,
-                c: c + 1
-            },
-            name: dataHero.classHero[iH].name,
-            PV: basePV + markupPVFloor + markupPVRand,
-            FOR: baseFOR + markupFORFloor + markupFORRand,
-            life: basePV + markupPVFloor + markupPVRand
-        };
-        dataHero.heroGenerate.push(data);
-        posHero.push(pos);
+        createHero(iH, r, c);
         padHero(iH);
         initMove();
     } else {
@@ -613,8 +590,32 @@ const spawnHero = () => {
     };
 };
 
+// create hero
+const createHero = (iH, r, c) => {
+    let basePV = dataHero.classHero[iH].PV.base;
+    let markupPV = dataHero.classHero[iH].PV.markup;
+    let markupPVFloor = markupPV * (floor - 1);
+    let markupPVRand = Math.floor(Math.random() * (markupPV * floor));
+    let baseFOR = dataHero.classHero[iH].FOR.base;
+    let markupFOR = dataHero.classHero[iH].FOR.markup;
+    let markupFORFloor = markupFOR * (floor - 1);
+    let markupFORRand = Math.floor(Math.random() * (markupFOR * floor));
+    let data = {
+        position: {
+            r: r + 1,
+            c: c + 1
+        },
+        name: dataHero.classHero[iH].name,
+        PV: basePV + markupPVFloor + markupPVRand,
+        FOR: baseFOR + markupFORFloor + markupFORRand,
+        life: basePV + markupPVFloor + markupPVRand
+    };
+    dataHero.heroGenerate.push(data);
+};
+
 //create pad hero
 const padHero = (iH) => {
+    let posHero = dataHero.heroGenerate[0].position;
     for (let i = 0; i <= 4; i++) {
         // pad generation
         let gameSet = document.querySelector('#game');
@@ -625,8 +626,8 @@ const padHero = (iH) => {
             // hero pad
             let addImg = document.createElement('img');
             gameSet.lastChild.setAttribute("id", `entityHero`);
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c - 1) * 32;
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
             gameSet.lastChild.append(addImg);
@@ -637,32 +638,32 @@ const padHero = (iH) => {
         if (i == 1) {
             // up pad
             gameSet.lastChild.setAttribute("id", `upPad`);
-            let posR = (posHero[0].r - 2) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r - 2) * 32;
+            let posC = (posHero.c - 1) * 32;
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
         };
         if (i == 2) {
             // down pad
             gameSet.lastChild.setAttribute("id", `downPad`);
-            let posR = (posHero[0].r) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r) * 32;
+            let posC = (posHero.c - 1) * 32;
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
         };
         if (i == 3) {
             // left pad
             gameSet.lastChild.setAttribute("id", `leftPad`);
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c - 2) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c - 2) * 32;
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
         };
         if (i == 4) {
             // right pad
             gameSet.lastChild.setAttribute("id", `rightPad`);
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c) * 32;
             gameSet.lastChild.style.left = `${posC}px`;
             gameSet.lastChild.style.top = `${posR}px`;
         };
@@ -671,21 +672,21 @@ const padHero = (iH) => {
 
 // create hub for hero info when clicked
 const hubHero = (e) => {
-    let idS = e.currentTarget.idC;
-    console.log(`show hub for hero from class ${idS}`);
+    let idC = e.currentTarget.idC;
+    console.log(`show hub for hero from class ${idC}`);
     let leftHub = document.querySelector('#leftHub');
     let hero = dataHero.heroGenerate[0];
     leftHub.innerHTML = `<article class='cardHero'>
     <div class='containerTitle_cardHero'>
     <h1 class='title_cardHero'>${hero.name}</h1>
     </div>
-    <div class='containerImg_cardHero'><img src='${dataHero.classHero[idS].image}'></div>
+    <div class='containerImg_cardHero'><img src='${dataHero.classHero[idC].image}'></div>
     <p class='position_cardHero'>last coordinates: r${hero.position.r}c${hero.position.c}</p>
     <div class='containerStats_cardHero'>
     <p class='stats_cardHero'>PV: ${hero.PV}</p>
     <p class='stats_cardHero'>FOR: ${hero.FOR}</p>
     </div>
-    <p class='story_cardHero'>${dataHero.classHero[idS].story}</p>
+    <p class='story_cardHero'>${dataHero.classHero[idC].story}</p>
     </article>`;
 };
 
@@ -823,9 +824,9 @@ const initMove = () => {
     downPad.addEventListener("click", moveDown);
     leftPad.addEventListener("click", moveLeft);
     rightPad.addEventListener("click", moveRight);
-    heroPad.addEventListener("click", () => {
+    /*heroPad.addEventListener("click", () => {
         console.log(dataHero);
-    });
+    });*/
     document.addEventListener("keyup", moveHeroKey);
     //pass turn on rightclick
     heroPad.addEventListener("contextmenu", (e) => {
@@ -838,11 +839,12 @@ const initMove = () => {
 
 // move up
 const moveUp = () => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let oneFar = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let heroCurrent = document.querySelector(`#r${posHero.r}c${posHero.c}`);
+    let oneFar = document.querySelector(`#r${posHero.r - 1}c${posHero.c}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
-        posHero[0].r--;
+        posHero.r--;
         oneFar.classList.add('perso');
         padMove();
         moveMonster();
@@ -851,11 +853,12 @@ const moveUp = () => {
 };
 // move down
 const moveDown = () => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let oneFar = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let heroCurrent = document.querySelector(`#r${posHero.r}c${posHero.c}`);
+    let oneFar = document.querySelector(`#r${posHero.r + 1}c${posHero.c}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
-        posHero[0].r++;
+        posHero.r++;
         oneFar.classList.add('perso');
         padMove();
         moveMonster();
@@ -864,11 +867,12 @@ const moveDown = () => {
 };
 // move left
 const moveLeft = () => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let heroCurrent = document.querySelector(`#r${posHero.r}c${posHero.c}`);
+    let oneFar = document.querySelector(`#r${posHero.r}c${posHero.c - 1}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
-        posHero[0].c--;
+        posHero.c--;
         oneFar.classList.add('perso');
         padMove();
         moveMonster();
@@ -877,11 +881,12 @@ const moveLeft = () => {
 };
 //move right
 const moveRight = () => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
-    let oneFar = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let heroCurrent = document.querySelector(`#r${posHero.r}c${posHero.c}`);
+    let oneFar = document.querySelector(`#r${posHero.r}c${posHero.c + 1}`);
     if (!oneFar.classList.contains(`wall`) && !oneFar.classList.contains(`monster`)) {
         heroCurrent.classList.remove('perso');
-        posHero[0].c++;
+        posHero.c++;
         oneFar.classList.add('perso');
         padMove();
         moveMonster();
@@ -891,7 +896,8 @@ const moveRight = () => {
 
 // neutral action
 const neutralAction = () => {
-    let heroCurrent = document.querySelector(`#r${posHero[0].r}c${posHero[0].c}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let heroCurrent = document.querySelector(`#r${posHero.r}c${posHero.c}`);
     if (heroCurrent.classList.contains(`stairs`)) {
         reset(1);
         console.log(`Yay new floor !`);
@@ -903,40 +909,41 @@ const neutralAction = () => {
 
 // move pad
 const padMove = () => {
+    let posHero = dataHero.heroGenerate[0].position;
     let movePad = [...document.querySelectorAll('.heroPad')];
     for (let i = 0; i <= 4; i++) {
         if (i == 0) {
             // hero pad
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c - 1) * 32;
             movePad[i].style.left = `${posC}px`;
             movePad[i].style.top = `${posR}px`;
         };
         if (i == 1) {
             // up pad
-            let posR = (posHero[0].r - 2) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r - 2) * 32;
+            let posC = (posHero.c - 1) * 32;
             movePad[i].style.left = `${posC}px`;
             movePad[i].style.top = `${posR}px`;
         };
         if (i == 2) {
             // down pad
-            let posR = (posHero[0].r) * 32;
-            let posC = (posHero[0].c - 1) * 32;
+            let posR = (posHero.r) * 32;
+            let posC = (posHero.c - 1) * 32;
             movePad[i].style.left = `${posC}px`;
             movePad[i].style.top = `${posR}px`;
         };
         if (i == 3) {
             // left pad
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c - 2) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c - 2) * 32;
             movePad[i].style.left = `${posC}px`;
             movePad[i].style.top = `${posR}px`;
         };
         if (i == 4) {
             // right pad 
-            let posR = (posHero[0].r - 1) * 32;
-            let posC = (posHero[0].c) * 32;
+            let posR = (posHero.r - 1) * 32;
+            let posC = (posHero.c) * 32;
             movePad[i].style.left = `${posC}px`;
             movePad[i].style.top = `${posR}px`;
         };
@@ -1017,10 +1024,11 @@ const moveMonster = () => {
 
 // availablety of pad
 const checkAvailablePad = () => {
-    let upPos = document.querySelector(`#r${posHero[0].r - 1}c${posHero[0].c}`);
-    let downPos = document.querySelector(`#r${posHero[0].r + 1}c${posHero[0].c}`);
-    let leftPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c - 1}`);
-    let rightPos = document.querySelector(`#r${posHero[0].r}c${posHero[0].c + 1}`);
+    let posHero = dataHero.heroGenerate[0].position;
+    let upPos = document.querySelector(`#r${posHero.r - 1}c${posHero.c}`);
+    let downPos = document.querySelector(`#r${posHero.r + 1}c${posHero.c}`);
+    let leftPos = document.querySelector(`#r${posHero.r}c${posHero.c - 1}`);
+    let rightPos = document.querySelector(`#r${posHero.r}c${posHero.c + 1}`);
     // up pad check & set visibility
     if (upPos.classList.contains('wall') || upPos.classList.contains('monster')) {
         let upPad = document.querySelector('#upPad');
@@ -1073,7 +1081,6 @@ const reset = (nF) => {
     document.removeEventListener('keyup', moveHeroKey);
     leftHub.innerHTML = ``;
     rightHub.innerHTML = ``;
-    posHero.length = 0;
     posStairs.length = 0;
     dataMonster.monsterGenerate.length = 0;
     dataHero.heroGenerate.length = 0;
@@ -1098,7 +1105,6 @@ const cleanLeftHub = () => {
 };
 
 // appInit
-let posHero = [];
 let posStairs = [];
 let floor = 1;
 const appInit = () => {
@@ -1113,8 +1119,8 @@ const appInit = () => {
     checkAvailablePad();
     cleanRightHub();
     cleanLeftHub();
-    console.log(`hero position:`);
-    console.log(posHero);
+    console.log(`data hero:`);
+    console.log(dataHero);
     console.log(`stairs position:`);
     console.log(posStairs);
     console.log(`data monster:`);
