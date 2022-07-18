@@ -761,7 +761,6 @@ const padMonster = (iM, r, c, m) => {
 
 // normal attack
 const normalAttack = (idM) => {
-    console.log(idM);
     let monster = dataMonster.monsterGenerate[idM];
     let hero = dataHero.heroGenerate[0];
     let monsterEntity = document.querySelector(`#monster${idM}`);
@@ -773,6 +772,7 @@ const normalAttack = (idM) => {
     if (upPlace.classList.contains('perso') || downPlace.classList.contains('perso') ||
         leftPlace.classList.contains('perso') || rightPlace.classList.contains('perso')) {
         monster.life = monster.life - hero.FOR;
+        console.log(`Hero ${hero.name} attacks monster${idM}: ${monster.name} with ${hero.FOR}FOR.`);
         console.log(`${monster.life}/${monster.PV}`);
         if (monster.life <= 0) {
             placeMonster.classList.remove('monster');
