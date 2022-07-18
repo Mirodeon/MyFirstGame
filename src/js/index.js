@@ -750,6 +750,38 @@ const padMonster = (iM, r, c, m) => {
     addPad.idMonster = m;
     addPad.idStock = iM;
     addPad.addEventListener('click', hubMonster);
+    addPad.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        let idM = e.currentTarget.idMonster;
+        normalAttack(idM);
+        console.log(`Bloqué petit menu !`);
+        return false;
+    }, false);
+};
+
+// normal attack
+const normalAttack = (idM) => {
+    console.log(idM);
+    let monster = dataMonster.monsterGenerate[idM];
+    let hero = dataHero.heroGenerate[0];
+    let monsterEntity = document.querySelector(`#monster${idM}`);
+    let placeMonster = document.querySelector(`#r${monster.position.r}c${monster.position.c}`);
+    let upPlace = document.querySelector(`#r${monster.position.r - 1}c${monster.position.c}`);
+    let downPlace = document.querySelector(`#r${monster.position.r + 1}c${monster.position.c}`);
+    let leftPlace = document.querySelector(`#r${monster.position.r}c${monster.position.c - 1}`);
+    let rightPlace = document.querySelector(`#r${monster.position.r}c${monster.position.c + 1}`);
+    if (upPlace.classList.contains('perso') || downPlace.classList.contains('perso') ||
+        leftPlace.classList.contains('perso') || rightPlace.classList.contains('perso')) {
+        monster.life = monster.life - hero.FOR;
+        console.log(`${monster.life}/${monster.PV}`);
+        if (monster.life <= 0) {
+            placeMonster.classList.remove('monster');
+            monsterEntity.remove();
+            console.log(`monster${idM}: ${monster.name} is dead.`);
+        };
+        moveMonster();
+        checkAvailablePad();
+    };
 };
 
 // create hub for monster info when clicked
@@ -963,6 +995,9 @@ const moveMonster = () => {
         let lPos = document.querySelector(`#r${posM.r}c${posM.c - 1}`);
         let monsterPad = document.querySelector(`#monster${i}`);
         // up move
+        if (monster[i].life <= 1) {
+            randomMove = -1;
+        };
         if (randomMove == 0 &&
             !uPos.classList.contains('wall') &&
             !uPos.classList.contains('monster') &&
