@@ -87,6 +87,7 @@ body main #leftHub .cardHero .containerImg_cardHero .containerLife_cardHero {
   left: 10px;
   filter: drop-shadow(0px 0px 10px rgb(0, 190, 0));
   border-radius: 5px;
+  z-index: 1;
 }
 body main #leftHub .cardHero .containerImg_cardHero .containerLife_cardHero .lifeBar_cardHero {
   width: 100%;
@@ -96,6 +97,35 @@ body main #leftHub .cardHero .containerImg_cardHero .containerLife_cardHero .lif
   border-radius: 5px;
 }
 body main #leftHub .cardHero .containerImg_cardHero .containerLife_cardHero .numericLife_cardHero {
+  font-size: 13px;
+  width: 210px;
+  text-align: center;
+  height: 15px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+body main #leftHub .cardHero .containerImg_cardHero .containerMana_cardHero {
+  width: 210px;
+  height: 15px;
+  box-sizing: border-box;
+  background-color: rgb(60, 60, 60);
+  border: 1px solid black;
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  filter: drop-shadow(0px 0px 10px rgb(0, 0, 190));
+  border-radius: 5px;
+}
+body main #leftHub .cardHero .containerImg_cardHero .containerMana_cardHero .manaBar_cardHero {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 190);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+body main #leftHub .cardHero .containerImg_cardHero .containerMana_cardHero .numericMana_cardHero {
   font-size: 13px;
   width: 210px;
   text-align: center;
@@ -121,9 +151,11 @@ body main #leftHub .cardHero .containerStats_cardHero {
   margin: 0px auto;
   border-radius: 15px;
   padding: 10px 0px;
-  display: flex;
+  display: grid;
   justify-content: space-around;
-  font-size: 16px;
+  font-size: 12px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 body main #leftHub .cardHero .story_cardHero {
   box-sizing: border-box;
@@ -195,6 +227,7 @@ body main #rightHub .cardMonster .containerImg_cardMonster .containerLife_cardMo
   left: 10px;
   filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
   border-radius: 5px;
+  z-index: 1;
 }
 body main #rightHub .cardMonster .containerImg_cardMonster .containerLife_cardMonster .lifeBar_cardMonster {
   width: 100%;
@@ -204,6 +237,35 @@ body main #rightHub .cardMonster .containerImg_cardMonster .containerLife_cardMo
   border-radius: 5px;
 }
 body main #rightHub .cardMonster .containerImg_cardMonster .containerLife_cardMonster .numericLife_cardMonster {
+  font-size: 13px;
+  width: 210px;
+  text-align: center;
+  height: 15px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+body main #rightHub .cardMonster .containerImg_cardMonster .containerMana_cardMonster {
+  width: 210px;
+  height: 15px;
+  box-sizing: border-box;
+  background-color: rgb(60, 60, 60);
+  border: 1px solid black;
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  filter: drop-shadow(0px 0px 10px rgb(0, 0, 190));
+  border-radius: 5px;
+}
+body main #rightHub .cardMonster .containerImg_cardMonster .containerMana_cardMonster .manaBar_cardMonster {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 190);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+body main #rightHub .cardMonster .containerImg_cardMonster .containerMana_cardMonster .numericMana_cardMonster {
   font-size: 13px;
   width: 210px;
   text-align: center;
@@ -229,9 +291,11 @@ body main #rightHub .cardMonster .containerStats_cardMonster {
   margin: 0px auto;
   border-radius: 15px;
   padding: 10px 0px;
-  display: flex;
+  display: grid;
   justify-content: space-around;
-  font-size: 16px;
+  font-size: 12px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 body main #rightHub .cardMonster .story_cardMonster {
   box-sizing: border-box;

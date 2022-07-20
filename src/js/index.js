@@ -592,14 +592,37 @@ const spawnHero = () => {
 
 // create hero
 const createHero = (iH, r, c) => {
+    // PV
     let basePV = dataHero.classHero[iH].PV.base;
     let markupPV = dataHero.classHero[iH].PV.markup;
     let markupPVFloor = markupPV * (floor - 1);
     let markupPVRand = Math.floor(Math.random() * (markupPV * floor));
+    // FOR
     let baseFOR = dataHero.classHero[iH].FOR.base;
     let markupFOR = dataHero.classHero[iH].FOR.markup;
     let markupFORFloor = markupFOR * (floor - 1);
     let markupFORRand = Math.floor(Math.random() * (markupFOR * floor));
+    // AGI
+    let baseAGI = dataHero.classHero[iH].AGI.base;
+    let markupAGI = dataHero.classHero[iH].AGI.markup;
+    let markupAGIFloor = markupAGI * (floor - 1);
+    let markupAGIRand = Math.floor(Math.random() * (markupAGI * floor));
+    // INT
+    let baseINT = dataHero.classHero[iH].INT.base;
+    let markupINT = dataHero.classHero[iH].INT.markup;
+    let markupINTFloor = markupINT * (floor - 1);
+    let markupINTRand = Math.floor(Math.random() * (markupINT * floor));
+    // SAG
+    let baseSAG = dataHero.classHero[iH].SAG.base;
+    let markupSAG = dataHero.classHero[iH].SAG.markup;
+    let markupSAGFloor = markupSAG * (floor - 1);
+    let markupSAGRand = Math.floor(Math.random() * (markupSAG * floor));
+    // CHA
+    let baseCHA = dataHero.classHero[iH].CHA.base;
+    let markupCHA = dataHero.classHero[iH].CHA.markup;
+    let markupCHAFloor = markupCHA * (floor - 1);
+    let markupCHARand = Math.floor(Math.random() * (markupCHA * floor));
+    // data hero
     let data = {
         position: {
             r: r + 1,
@@ -608,7 +631,15 @@ const createHero = (iH, r, c) => {
         name: dataHero.classHero[iH].name,
         PV: basePV + markupPVFloor + markupPVRand,
         FOR: baseFOR + markupFORFloor + markupFORRand,
-        life: basePV + markupPVFloor + markupPVRand
+        AGI: baseAGI + markupAGIFloor + markupAGIRand,
+        INT: baseINT + markupINTFloor + markupINTRand,
+        SAG: baseSAG + markupSAGFloor + markupSAGRand,
+        CHA: baseCHA + markupCHAFloor + markupCHARand,
+        life: basePV + markupPVFloor + markupPVRand,
+        mana: {
+            current: baseINT + markupINTFloor + markupINTRand + (5 * (baseSAG + markupSAGFloor + markupSAGRand)),
+            total: baseINT + markupINTFloor + markupINTRand + (5 * (baseSAG + markupSAGFloor + markupSAGRand))
+        }
     };
     dataHero.heroGenerate.push(data);
 };
@@ -693,11 +724,19 @@ const hubHero = (e) => {
     <div class='lifeBar_cardHero'></div>
     <div class='numericLife_cardHero'>${hero.life}/${hero.PV}</div>
     </div>
+    <div class='containerMana_cardHero'>
+    <div class='manaBar_cardHero'></div>
+    <div class='numericMana_cardHero'>${hero.mana.current}/${hero.mana.total}</div>
+    </div>
     </div>
     <p class='position_cardHero'>Location: r${hero.position.r}c${hero.position.c}</p>
     <div class='containerStats_cardHero'>
     <p class='stats_cardHero'>PV: ${hero.PV}</p>
     <p class='stats_cardHero'>FOR: ${hero.FOR}</p>
+    <p class='stats_cardHero'>AGI: ${hero.AGI}</p>
+    <p class='stats_cardHero'>INT: ${hero.INT}</p>
+    <p class='stats_cardHero'>SAG: ${hero.SAG}</p>
+    <p class='stats_cardHero'>CHA: ${hero.CHA}</p>
     </div>
     <p class='story_cardHero'>${dataHero.classHero[idC].story}</p>
     </article>`;
@@ -726,14 +765,36 @@ const spawnMonster = (nM) => {
 // select random monster and generate caracteristics
 const createMonster = (r, c, m) => {
     let iM = Math.floor(Math.random() * dataMonster.stockMonster.length);
+    //PV
     let basePV = dataMonster.stockMonster[iM].PV.base;
     let markupPV = dataMonster.stockMonster[iM].PV.markup;
     let markupPVFloor = markupPV * (floor - 1);
     let markupPVRand = Math.floor(Math.random() * (markupPV * floor));
+    //FOR
     let baseFOR = dataMonster.stockMonster[iM].FOR.base;
     let markupFOR = dataMonster.stockMonster[iM].FOR.markup;
     let markupFORFloor = markupFOR * (floor - 1);
     let markupFORRand = Math.floor(Math.random() * (markupFOR * floor));
+    // AGI
+    let baseAGI = dataMonster.stockMonster[iM].AGI.base;
+    let markupAGI = dataMonster.stockMonster[iM].AGI.markup;
+    let markupAGIFloor = markupAGI * (floor - 1);
+    let markupAGIRand = Math.floor(Math.random() * (markupAGI * floor));
+    // INT
+    let baseINT = dataMonster.stockMonster[iM].INT.base;
+    let markupINT = dataMonster.stockMonster[iM].INT.markup;
+    let markupINTFloor = markupINT * (floor - 1);
+    let markupINTRand = Math.floor(Math.random() * (markupINT * floor));
+    // SAG
+    let baseSAG = dataMonster.stockMonster[iM].SAG.base;
+    let markupSAG = dataMonster.stockMonster[iM].SAG.markup;
+    let markupSAGFloor = markupSAG * (floor - 1);
+    let markupSAGRand = Math.floor(Math.random() * (markupSAG * floor));
+    // CHA
+    let baseCHA = dataMonster.stockMonster[iM].CHA.base;
+    let markupCHA = dataMonster.stockMonster[iM].CHA.markup;
+    let markupCHAFloor = markupCHA * (floor - 1);
+    let markupCHARand = Math.floor(Math.random() * (markupCHA * floor));
     let data = {
         position: {
             r: r + 1,
@@ -742,7 +803,15 @@ const createMonster = (r, c, m) => {
         name: dataMonster.stockMonster[iM].name,
         PV: basePV + markupPVFloor + markupPVRand,
         FOR: baseFOR + markupFORFloor + markupFORRand,
-        life: basePV + markupPVFloor + markupPVRand
+        AGI: baseAGI + markupAGIFloor + markupAGIRand,
+        INT: baseINT + markupINTFloor + markupINTRand,
+        SAG: baseSAG + markupSAGFloor + markupSAGRand,
+        CHA: baseCHA + markupCHAFloor + markupCHARand,
+        life: basePV + markupPVFloor + markupPVRand,
+        mana: {
+            current: baseINT + markupINTFloor + markupINTRand + (5 * (baseSAG + markupSAGFloor + markupSAGRand)),
+            total: baseINT + markupINTFloor + markupINTRand + (5 * (baseSAG + markupSAGFloor + markupSAGRand))
+        }
     };
     dataMonster.monsterGenerate.push(data);
     padMonster(iM, r, c, m);
@@ -825,11 +894,19 @@ const hubMonster = (e) => {
     <div class='lifeBar_cardMonster'></div>
     <div class='numericLife_cardMonster'>${monster[idM].life}/${monster[idM].PV}</div>
     </div>
+    <div class='containerMana_cardMonster'>
+    <div class='manaBar_cardMonster'></div>
+    <div class='numericMana_cardMonster'>${monster[idM].mana.current}/${monster[idM].mana.total}</div>
+    </div>
     </div>
     <p class='position_cardMonster'>Location: r${monster[idM].position.r}c${monster[idM].position.c}</p>
     <div class='containerStats_cardMonster'>
     <p class='stats_cardMonster'>PV: ${monster[idM].PV}</p>
     <p class='stats_cardMonster'>FOR: ${monster[idM].FOR}</p>
+    <p class='stats_cardMonster'>AGI: ${monster[idM].AGI}</p>
+    <p class='stats_cardMonster'>INT: ${monster[idM].INT}</p>
+    <p class='stats_cardMonster'>SAG: ${monster[idM].SAG}</p>
+    <p class='stats_cardMonster'>CHA: ${monster[idM].CHA}</p>
     </div>
     <p class='story_cardMonster'>${dataMonster.stockMonster[idS].story}</p>
     </article>`;
@@ -1264,6 +1341,22 @@ let dataHero = {
             base: 10,
             markup: 10
         },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
         skill: ["skill1", "skill2"]
     },
     {
@@ -1275,6 +1368,22 @@ let dataHero = {
             markup: 15
         },
         FOR: {
+            base: 10,
+            markup: 10
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
             base: 10,
             markup: 10
         },
@@ -1292,6 +1401,22 @@ let dataHero = {
             base: 10,
             markup: 10
         },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
         skill: ["skill1", "skill2"]
     },
     {
@@ -1303,6 +1428,22 @@ let dataHero = {
             markup: 15
         },
         FOR: {
+            base: 10,
+            markup: 10
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
             base: 10,
             markup: 10
         },
@@ -1323,7 +1464,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "runic dragon",
@@ -1336,7 +1493,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "infernal dragon",
@@ -1349,7 +1522,23 @@ let dataMonster = {
         FOR: {
             base: 15,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "abyssal dragon",
@@ -1362,7 +1551,23 @@ let dataMonster = {
         FOR: {
             base: 12,
             markup: 5
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "haunted snail",
@@ -1375,7 +1580,23 @@ let dataMonster = {
         FOR: {
             base: 5,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "corrupted sylvan",
@@ -1388,7 +1609,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 5
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "lucky pig",
@@ -1401,7 +1638,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "melancholic ghost",
@@ -1414,7 +1667,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "evil spirit",
@@ -1427,7 +1696,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 5
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "gobelin",
@@ -1440,7 +1725,23 @@ let dataMonster = {
         FOR: {
             base: 5,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "goblin shaman",
@@ -1453,7 +1754,23 @@ let dataMonster = {
         FOR: {
             base: 5,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "aerial jellyfish",
@@ -1466,7 +1783,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "kobold",
@@ -1479,7 +1812,23 @@ let dataMonster = {
         FOR: {
             base: 7,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "embodiment of evil and depravity",
@@ -1492,7 +1841,23 @@ let dataMonster = {
         FOR: {
             base: 5,
             markup: 5
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "pizza boy",
@@ -1505,7 +1870,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "prankster cat",
@@ -1518,7 +1899,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "quetzacoalt",
@@ -1531,7 +1928,23 @@ let dataMonster = {
         FOR: {
             base: 15,
             markup: 7
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "traveler face",
@@ -1544,7 +1957,23 @@ let dataMonster = {
         FOR: {
             base: 3,
             markup: 2
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "slenderman",
@@ -1557,7 +1986,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 10
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "slime",
@@ -1570,7 +2015,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "spectator",
@@ -1583,7 +2044,23 @@ let dataMonster = {
         FOR: {
             base: 2,
             markup: 1
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "spider golem",
@@ -1596,7 +2073,23 @@ let dataMonster = {
         FOR: {
             base: 6,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "wild unicorn",
@@ -1609,7 +2102,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 5
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "awake unicorn",
@@ -1622,7 +2131,23 @@ let dataMonster = {
         FOR: {
             base: 15,
             markup: 6
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "inhabitant of the void",
@@ -1635,7 +2160,23 @@ let dataMonster = {
         FOR: {
             base: 10,
             markup: 3
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "red wyvern",
@@ -1648,7 +2189,23 @@ let dataMonster = {
         FOR: {
             base: 15,
             markup: 6
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     },
     {
         name: "zombie",
@@ -1661,7 +2218,23 @@ let dataMonster = {
         FOR: {
             base: 5,
             markup: 2
-        }
+        },
+        AGI: {
+            base: 10,
+            markup: 10
+        },
+        INT: {
+            base: 10,
+            markup: 10
+        },
+        SAG: {
+            base: 10,
+            markup: 10
+        },
+        CHA: {
+            base: 10,
+            markup: 10
+        },
     }],
     monsterGenerate: []
 };

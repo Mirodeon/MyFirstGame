@@ -82,6 +82,7 @@ body {
                         margin: 10px auto;
                         border-radius: 15px;
                     }
+
                     .containerLife_cardHero {
                         width: 210px;
                         height: 15px;
@@ -93,6 +94,7 @@ body {
                         left: 10px;
                         filter: drop-shadow(0px 0px 10px rgb(0, 190, 0));
                         border-radius: 5px;
+                        z-index: 1;
 
                         .lifeBar_cardHero {
                             width: 100%;
@@ -101,7 +103,40 @@ body {
                             box-sizing: border-box;
                             border-radius: 5px;
                         }
-                        .numericLife_cardHero{
+
+                        .numericLife_cardHero {
+                            font-size: 13px;
+                            width: 210px;
+                            text-align: center;
+                            height: 15px;
+                            box-sizing: border-box;
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                        }
+                    }
+
+                    .containerMana_cardHero {
+                        width: 210px;
+                        height: 15px;
+                        box-sizing: border-box;
+                        background-color: rgb(60, 60, 60);
+                        border: 1px solid black;
+                        position: absolute;
+                        bottom: -10px;
+                        left: 10px;
+                        filter: drop-shadow(0px 0px 10px rgb(0, 0, 190));
+                        border-radius: 5px;
+
+                        .manaBar_cardHero {
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgb(0, 0, 190);
+                            box-sizing: border-box;
+                            border-radius: 5px;
+                        }
+
+                        .numericMana_cardHero {
                             font-size: 13px;
                             width: 210px;
                             text-align: center;
@@ -131,9 +166,11 @@ body {
                     margin: 0px auto;
                     border-radius: 15px;
                     padding: 10px 0px;
-                    display: flex;
+                    display: grid;
                     justify-content: space-around;
-                    font-size: 16px;
+                    font-size: 12px;
+                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr;
                 }
 
                 .story_cardHero {
@@ -211,6 +248,7 @@ body {
                         left: 10px;
                         filter: drop-shadow(0px 0px 10px rgb(175, 0, 0));
                         border-radius: 5px;
+                        z-index: 1;
 
                         .lifeBar_cardMonster {
                             width: 100%;
@@ -219,7 +257,40 @@ body {
                             box-sizing: border-box;
                             border-radius: 5px;
                         }
-                        .numericLife_cardMonster{
+
+                        .numericLife_cardMonster {
+                            font-size: 13px;
+                            width: 210px;
+                            text-align: center;
+                            height: 15px;
+                            box-sizing: border-box;
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                        }
+                    }
+
+                    .containerMana_cardMonster {
+                        width: 210px;
+                        height: 15px;
+                        box-sizing: border-box;
+                        background-color: rgb(60, 60, 60);
+                        border: 1px solid black;
+                        position: absolute;
+                        bottom: -10px;
+                        left: 10px;
+                        filter: drop-shadow(0px 0px 10px rgb(0, 0, 190));
+                        border-radius: 5px;
+
+                        .manaBar_cardMonster {
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgb(0, 0, 190);
+                            box-sizing: border-box;
+                            border-radius: 5px;
+                        }
+
+                        .numericMana_cardMonster {
                             font-size: 13px;
                             width: 210px;
                             text-align: center;
@@ -249,9 +320,11 @@ body {
                     margin: 0px auto;
                     border-radius: 15px;
                     padding: 10px 0px;
-                    display: flex;
+                    display: grid;
                     justify-content: space-around;
-                    font-size: 16px;
+                    font-size: 12px;
+                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr;
                 }
 
                 .story_cardMonster {
